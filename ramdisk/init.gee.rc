@@ -429,6 +429,11 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     user camera
     group camera system inet input
 
+service gpu_dcvsd /system/bin/gpu_dcvsd
+    class late_start
+    user root
+    oneshot
+
 service conn_init /system/bin/logwrapper /system/bin/conn_init
     class late_start
     user system

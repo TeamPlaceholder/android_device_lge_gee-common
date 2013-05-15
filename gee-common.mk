@@ -47,7 +47,8 @@ PRODUCT_COPY_FILES += \
         device/lge/gee-common/ramdisk/init.gee.rc:root/init.gee.rc \
         device/lge/gee-common/ramdisk/init.gee.usb.rc:root/init.gee.usb.rc \
         device/lge/gee-common/ramdisk/init.gee.usb.sh:root/init.gee.usb.sh \
-        device/lge/gee-common/ramdisk/init.qcom.sh:root/init.qcom.sh
+        device/lge/gee-common/ramdisk/init.qcom.sh:root/init.qcom.sh \
+        device/lge/gee-common/ramdisk/initlogo.rle:root/initlogo.rle \
 
 # WiFi
 PRODUCT_COPY_FILES += \
@@ -57,9 +58,21 @@ PRODUCT_COPY_FILES += \
         device/lge/gee-common/wifi/wpa_supplicant.conf:obj/etc/wifi/wpa_supplicant.conf \
         device/lge/gee-common/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
 
-# Audio SND SOC Config
-PRODUCT_COPY_FILES += \
-	device/lge/gee-common/snd_soc_msm/snd_soc_msm_2x_Fusion3:system/etc/snd_soc_msm/snd_soc_msm_2x_Fusion3
+# audio UCM files
+PRODUCT_COPY_FILES += device/lge/gee-common/snd_soc_msm/snd_soc_msm_2x:system/etc/snd_soc_msm/snd_soc_msm_2x \
+                      device/lge/gee-common/snd_soc_msm/snd_soc_msm_2x_Fusion3:system/etc/snd_soc_msm/snd_soc_msm_2x_Fusion3 \
+                      device/lge/gee-common/snd_soc_msm/snd_soc_msm_2x_Fusion3_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_2x_Fusion3_auxpcm \
+                      device/lge/gee-common/snd_soc_msm/snd_soc_msm_2x_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_2x_auxpcm \
+                      device/lge/gee-common/snd_soc_msm/snd_soc_msm_I2S:system/etc/snd_soc_msm/snd_soc_msm_I2S \
+                      device/lge/gee-common/snd_soc_msm/snd_soc_msm_I2SFusion:system/etc/snd_soc_msm/snd_soc_msm_I2SFusion \
+                      device/lge/gee-common/snd_soc_msm/snd_soc_msm_Sitar:system/etc/snd_soc_msm/snd_soc_msm_Sitar \
+                      device/lge/gee-common/snd_soc_msm/snd_soc_msm_Sitar_Sglte:system/etc/snd_soc_msm/snd_soc_msm_Sitar_Sglte \
+                      device/lge/gee-common/snd_soc_msm/snd_soc_msm_Sitar_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_Sitar_auxpcm \
+                      device/lge/gee-common/snd_soc_msm/snd_soc_msm_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_auxpcm \
+
+PRODUCT_PACKAGES += \
+    battery_monitor \
+    battery_shutdown
 
 # Audio Policy Config
 PRODUCT_COPY_FILES += \
