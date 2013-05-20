@@ -46,8 +46,8 @@ ARCH_ARM_HIGH_OPTIMIZATION := true
 # Enable various prefetch optimizations
 COMMON_GLOBAL_CFLAGS += -D__ARM_USE_PLD -D__ARM_CACHE_LINE_SIZE=64 -DNEW_ION_API -DQCOM_BSP_CAMERA_ABI_HACK
 
-#Include our own header for camera hal
-#TARGET_SPECIFIC_HEADER_PATH := device/lge/gee-common/include
+#Include our own header for GPS hal
+TARGET_SPECIFIC_HEADER_PATH := device/lge/gee-common/include
 
 BOARD_CAMERA_USE_MM_HEAP:= true
 

@@ -43,12 +43,27 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += Torch
 
 # Ramdisk
-PRODUCT_COPY_FILES += \
-        device/lge/gee-common/ramdisk/init.gee.rc:root/init.gee.rc \
-        device/lge/gee-common/ramdisk/init.gee.usb.rc:root/init.gee.usb.rc \
-        device/lge/gee-common/ramdisk/init.gee.usb.sh:root/init.gee.usb.sh \
-        device/lge/gee-common/ramdisk/init.qcom.sh:root/init.qcom.sh \
-        device/lge/gee-common/ramdisk/initlogo.rle:root/initlogo.rle \
+PRODUCT_PACKAGES += \
+    fstab.qcom \
+    initlogo.rle \
+    init.bt.rc \
+    init.qcom.rc \
+    init.qcom.usb.rc \
+    init.target.rc \
+    ueventd.qcom.rc \
+    init.qcom.post_boot.sh \
+    init.qcom.efs.sync.sh \
+    init.qcom.sh \
+    init.qcom.class_core.sh \
+    init.qcom.class_main.sh \
+    init.qcom.syspart_fixup.sh \
+    init.qcom.early_boot.sh \
+    init.qcom.mdm_links.sh \
+    init.qcom.modem_links.sh \
+    init.qcom.usb.sh \
+    init.qcom.lpm_boot.sh \
+    init.qcom.thermal_conf.sh \
+    init.recovery.qcom.rc
 
 # WiFi
 PRODUCT_COPY_FILES += \
@@ -58,45 +73,42 @@ PRODUCT_COPY_FILES += \
         device/lge/gee-common/wifi/wpa_supplicant.conf:obj/etc/wifi/wpa_supplicant.conf \
         device/lge/gee-common/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
 
-# audio UCM files
-PRODUCT_COPY_FILES += device/lge/gee-common/snd_soc_msm/snd_soc_msm_2x:system/etc/snd_soc_msm/snd_soc_msm_2x \
-                      device/lge/gee-common/snd_soc_msm/snd_soc_msm_2x_Fusion3:system/etc/snd_soc_msm/snd_soc_msm_2x_Fusion3 \
-                      device/lge/gee-common/snd_soc_msm/snd_soc_msm_2x_Fusion3_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_2x_Fusion3_auxpcm \
-                      device/lge/gee-common/snd_soc_msm/snd_soc_msm_2x_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_2x_auxpcm \
-                      device/lge/gee-common/snd_soc_msm/snd_soc_msm_I2S:system/etc/snd_soc_msm/snd_soc_msm_I2S \
-                      device/lge/gee-common/snd_soc_msm/snd_soc_msm_I2SFusion:system/etc/snd_soc_msm/snd_soc_msm_I2SFusion \
-                      device/lge/gee-common/snd_soc_msm/snd_soc_msm_Sitar:system/etc/snd_soc_msm/snd_soc_msm_Sitar \
-                      device/lge/gee-common/snd_soc_msm/snd_soc_msm_Sitar_Sglte:system/etc/snd_soc_msm/snd_soc_msm_Sitar_Sglte \
-                      device/lge/gee-common/snd_soc_msm/snd_soc_msm_Sitar_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_Sitar_auxpcm \
-                      device/lge/gee-common/snd_soc_msm/snd_soc_msm_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_auxpcm \
+# Audio Configuration files
+PRODUCT_COPY_FILES += \
+        device/lge/gee-common/audio/audio_policy.conf:system/etc/audio_policy.conf \
+        device/lge/gee-common/audio/audio_effects.conf:system/etc/audio_effects.conf \
+device/lge/gee-common/audio/snd_soc_msm_2x:system/etc/snd_soc_msm/snd_soc_msm_2x \
+                      device/lge/gee-common/audio/snd_soc_msm_2x_Fusion3:system/etc/snd_soc_msm/snd_soc_msm_2x_Fusion3 \
+                      device/lge/gee-common/audio/snd_soc_msm_2x_Fusion3_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_2x_Fusion3_auxpcm \
+                      device/lge/gee-common/audio/snd_soc_msm_2x_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_2x_auxpcm \
+                      device/lge/gee-common/audio/snd_soc_msm_I2S:system/etc/snd_soc_msm/snd_soc_msm_I2S \
+                      device/lge/gee-common/audio/snd_soc_msm_I2SFusion:system/etc/snd_soc_msm/snd_soc_msm_I2SFusion \
+                      device/lge/gee-common/audio/snd_soc_msm_Sitar:system/etc/snd_soc_msm/snd_soc_msm_Sitar \
+                      device/lge/gee-common/audio/snd_soc_msm_Sitar_Sglte:system/etc/snd_soc_msm/snd_soc_msm_Sitar_Sglte \
+                      device/lge/gee-common/audio/snd_soc_msm_Sitar_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_Sitar_auxpcm \
+                      device/lge/gee-common/audio/snd_soc_msm_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_auxpcm \
 
 PRODUCT_PACKAGES += \
     battery_monitor \
     battery_shutdown
 
-# Audio Policy Config
-PRODUCT_COPY_FILES += \
-        device/lge/gee-common/configs/audio_policy.conf:system/etc/audio_policy.conf \
-
 # Thermal Daemon
 PRODUCT_COPY_FILES += \
-	device/lge/gee-common/configs/thermald-gee-common.conf:system/etc/thermald.conf
+	device/lge/gee-common/thermal/thermald.conf:system/etc/thermald.conf
 
 # EGL Config
 PRODUCT_COPY_FILES += \
-        device/lge/gee-common/configs/egl.cfg:system/lib/egl/egl.cfg
+        device/lge/gee-common/egl/egl.cfg:system/lib/egl/egl.cfg
 
 # Media
 PRODUCT_COPY_FILES += \
-	device/lge/gee-common/configs/media_profiles.xml:system/etc/media_profiles.xml \
-	device/lge/gee-common/configs/media_codecs.xml:system/etc/media_codecs.xml 
+	device/lge/gee-common/media/media_profiles.xml:system/etc/media_profiles.xml \
+	device/lge/gee-common/media/media_codecs.xml:system/etc/media_codecs.xml 
 
 # Non-Ramdisk Init Scripts
 PRODUCT_COPY_FILES += \
 	device/lge/gee-common/scripts/kickstart_checker.sh:system/etc/kickstart_checker.sh \
         device/lge/gee-common/scripts/init.gee.bt.sh:system/etc/init.gee.bt.sh \
-	device/lge/gee-common/scripts/init.qcom.mdm_links.sh:system/etc/init.qcom.mdm_links.sh \
- 	device/lge/gee-common/scripts/init.qcom.modem_links.sh:system/etc/init.qcom.modem_links.sh \
 	device/lge/gee-common/scripts/efsbackup.sh:system/bin/efsbackup.sh
 
 # Keylayouts
@@ -183,7 +195,12 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     rild.libpath=/system/lib/libril-qc-qmi-1.so 
 
 #Upto 3 layers can go through overlays
-PRODUCT_PROPERTY_OVERRIDES += persist.hwc.mdpcomp.enable=true
+PRODUCT_PROPERTY_OVERRIDES +=     
+    debug.sf.hw=1 \
+    debug.egl.hw=1 \
+    debug.composition.type=dyn \
+    persist.hwc.mdpcomp.enable=true \
+    debug.mdpcomp.logs=0
 
 PRODUCT_TAGS += dalvik.gc.type-precise
 
@@ -197,7 +214,11 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
 	libgenlock \
+	libmemalloc \
 	liboverlay \
+	libqdutils \
+	libtilerenderer \
+	libI420colorconvert \
 	hwcomposer.msm8960 \
 	gralloc.msm8960 \
 	copybit.msm8960
@@ -225,14 +246,19 @@ PRODUCT_PACKAGES += \
 	libmmcamera_interface2 \
 	libmmcamera_interface
 
+# Omx
 PRODUCT_PACKAGES += \
-        libmm-omxcore \
-	libdivxdrmdecrypt \
-	libOmxVdec \
-	libOmxVenc \
-	libOmxCore \
-	libstagefrighthw \
-	libc2dcolorconvert
+    libdivxdrmdecrypt \
+    libmm-omxcore \
+    libOmxCore \
+    libstagefrighthw \
+    libOmxVdec \
+    libOmxVenc \
+    libOmxAacEnc \
+    libOmxAmrEnc \
+    libOmxEvrcEnc \
+    libOmxQcelp13Enc \
+    libdashplayer
 
 PRODUCT_PACKAGES += \
 	libloc_adapter \
@@ -241,10 +267,24 @@ PRODUCT_PACKAGES += \
 	libgps.utils \
 	gps.msm8960
 
+PRODUCT_COPY_FILES += \
+    device/lge/gee-common/gps/gps.conf:system/etc/gps.conf
+
+# QC Perf
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.extension_library=/system/lib/libqc-opt.so
+
+# Increase the HWUI font cache since we have tons of RAM
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hwui.text_cache_width=2048
+
 PRODUCT_PACKAGES += \
 	bdAddrLoader \
 	libwfcu \
 	conn_init
+
+# QRNGD
+PRODUCT_PACKAGES += qrngd
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	drm.service.enabled=true
