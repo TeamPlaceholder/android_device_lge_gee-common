@@ -127,9 +127,6 @@ BOARD_HAVE_LOW_LATENCY_AUDIO := true
 
 BOARD_HAS_NO_SELECT_BUTTON := true
 
-# Bootanimation
-TARGET_BOOTANIMATION_PRELOAD := true
-TARGET_BOOTANIMATION_TEXTURE_CACHE := true
-
-# Disable initlogo, our framebuffer is weird
+# Disable initlogo, Samsungs framebuffer is weird	
 TARGET_NO_INITLOGO := true
+
