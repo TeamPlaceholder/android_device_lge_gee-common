@@ -239,9 +239,19 @@ service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
     user root
     disabled
 
-service kickstart /system/bin/qcks -i /firmware/image
+service ks_checker /system/bin/sh /system/etc/kickstart_checker.sh
+    class core
     oneshot
+
+service kickstart /system/bin/qcks -i /firmware/image/ -r /data/tombstones/mdm/
+    class core
+    user system
+    group system
     disabled
+    oneshot
+
+on property:persist.radio.kickstart=on
+    start kickstart
 
 service qrngd /system/bin/qrngd -f
     class main
