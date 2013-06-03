@@ -108,7 +108,7 @@ PRODUCT_COPY_FILES += \
 # Non-Ramdisk Init Scripts
 PRODUCT_COPY_FILES += \
 	device/lge/gee-common/scripts/kickstart_checker.sh:system/etc/kickstart_checker.sh \
-        device/lge/gee-common/scripts/init.gee.bt.sh:system/etc/init.gee.bt.sh \
+        device/lge/gee-common/scripts/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
 	device/lge/gee-common/scripts/efsbackup.sh:system/bin/efsbackup.sh
 
 # Keylayouts
@@ -143,7 +143,7 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
 	frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml
 
-# NFC packages geehrc for gee-common
+# NFC packages for gee-common
 PRODUCT_PACKAGES += \
     libnfc \
     libnfc_jni \
@@ -194,14 +194,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     rild.libpath=/system/lib/libril-qc-qmi-1.so 
 
-#Upto 3 layers can go through overlays
-PRODUCT_PROPERTY_OVERRIDES +=     
-    debug.sf.hw=1 \
-    debug.egl.hw=1 \
-    debug.composition.type=dyn \
-    persist.hwc.mdpcomp.enable=true \
-    debug.mdpcomp.logs=0
-
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 PRODUCT_PACKAGES += \
@@ -232,12 +224,17 @@ PRODUCT_PACKAGES += \
 	audio.r_submix.default \
 	libaudio-resampler
 
-
 PRODUCT_PACKAGES += \
 	hci_qcomm_init
 
 PRODUCT_PACKAGES += \
 	power.msm8960
+
+PRODUCT_PACKAGES += \
+	camera.msm8960
+
+PRODUCT_PACKAGES += \
+	lights.msm8960
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.qualcomm.bt.hci_transport=smd
@@ -273,10 +270,6 @@ PRODUCT_COPY_FILES += \
 # QC Perf
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.extension_library=/system/lib/libqc-opt.so
-
-# Increase the HWUI font cache since we have tons of RAM
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.hwui.text_cache_width=2048
 
 PRODUCT_PACKAGES += \
 	bdAddrLoader \
