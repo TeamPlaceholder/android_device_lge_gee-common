@@ -44,13 +44,11 @@ PRODUCT_PACKAGES += Torch
 
 # Ramdisk
 PRODUCT_PACKAGES += \
-    fstab.qcom \
     initlogo.rle \
     init.bt.rc \
     init.qcom.rc \
     init.qcom.usb.rc \
     init.target.rc \
-    ueventd.qcom.rc \
     init.qcom.post_boot.sh \
     init.qcom.efs.sync.sh \
     init.qcom.sh \
@@ -229,12 +227,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
 	power.msm8960
-
-PRODUCT_PACKAGES += \
-	camera.msm8960
-
-PRODUCT_PACKAGES += \
-	lights.msm8960
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.qualcomm.bt.hci_transport=smd

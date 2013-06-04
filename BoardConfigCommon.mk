@@ -49,9 +49,6 @@ COMMON_GLOBAL_CFLAGS += -D__ARM_USE_PLD -D__ARM_CACHE_LINE_SIZE=64 -DNEW_ION_API
 #Include our own header for GPS hal
 TARGET_SPECIFIC_HEADER_PATH := device/lge/gee-common/include
 
-BOARD_CAMERA_USE_MM_HEAP:= true
-
-BOARD_KERNEL_CMDLINE := console=ttySHL0,115200,n8 androidboot.hardware=qcom lpj=67677
 BOARD_KERNEL_BASE := 0x80200000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01600000
