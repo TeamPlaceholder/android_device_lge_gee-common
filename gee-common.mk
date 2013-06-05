@@ -44,6 +44,7 @@ PRODUCT_PACKAGES += Torch
 
 # Ramdisk
 PRODUCT_PACKAGES += \
+    fstab.qcom \
     initlogo.rle \
     init.bt.rc \
     init.qcom.rc \
