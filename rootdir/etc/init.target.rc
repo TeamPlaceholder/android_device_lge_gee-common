@@ -33,11 +33,6 @@ on early-init
 on fs
     mount_all fstab.qcom
 
-on boot
-    write /sys/devices/i2c-3/3-0024/cyttsp_update_fw 1
-    write /sys/devices/i2c-3/3-005b/update_fw 1   
-    start qcamerasvr
-
 on post-fs-data
 
     # create directory for ril data
@@ -176,10 +171,10 @@ on charger
     setprop net.tcp.buffersize.evdo_b  4094,87380,262144,4096,16384,262144
 
 #start camera server as daemon
-service qcamerasvr /system/bin/mm-qcamera-daemon
-    class late_start
-    user media
-    group system camera inet input graphics
+#service qcamerasvr /system/bin/mm-qcamera-daemon
+#    class late_start
+#    user camera
+#    group camera system inet input
 
 service thermald /system/bin/thermald
     class main
