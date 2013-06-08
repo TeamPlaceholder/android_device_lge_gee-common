@@ -130,6 +130,6 @@ BOARD_HAVE_LOW_LATENCY_AUDIO := true
 
 BOARD_HAS_NO_SELECT_BUTTON := true
 
-# Disable initlogo, Samsungs framebuffer is weird	
+# Disable initlogo, LG's framebuffer is weird	
 TARGET_NO_INITLOGO := true
 

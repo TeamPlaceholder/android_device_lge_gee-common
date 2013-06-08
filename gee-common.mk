@@ -61,7 +61,8 @@ PRODUCT_PACKAGES += \
     init.qcom.modem_links.sh \
     init.qcom.usb.sh \
     init.qcom.thermal_conf.sh \
-    init.recovery.qcom.rc
+    init.recovery.qcom.rc \
+    ueventd.qcom.rc
 
 # WiFi
 PRODUCT_COPY_FILES += \
@@ -270,6 +271,12 @@ PRODUCT_PACKAGES += \
 
 # QRNGD
 PRODUCT_PACKAGES += qrngd
+
+# Camera
+PRODUCT_PACKAGES += camera.msm8960
+
+# Lights
+PRODUCT_PACKAGES += lights.msm8960
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	drm.service.enabled=true
