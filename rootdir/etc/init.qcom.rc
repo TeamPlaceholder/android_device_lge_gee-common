@@ -591,4 +591,8 @@ service sdcard /system/bin/sdcard /data/media /mnt/shell/emulated 1023 1023
 service macloader /system/bin/macloader
     class main
     oneshot
+    
+service fetch-swv /system/bin/fetch-swv
+    class late_start
+    oneshot
 
