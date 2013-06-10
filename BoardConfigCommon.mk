@@ -136,3 +136,6 @@ TARGET_NO_INITLOGO := true
 # no hardware camera
 USE_CAMERA_STUB := true
 
+# Use CM PowerHAL
+TARGET_PROVIDES_POWERHAL := true
+
