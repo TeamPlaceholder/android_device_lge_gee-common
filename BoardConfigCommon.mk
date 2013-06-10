@@ -139,3 +139,7 @@ USE_CAMERA_STUB := true
 # Use CM PowerHAL
 TARGET_PROVIDES_POWERHAL := true
 
+# We provide our own liblight
+TARGET_PROVIDES_LIBLIGHT := true
+
+
