@@ -154,7 +154,7 @@ typedef struct
     bool   ulp_initialized;
 } loc_eng_data_s_type;
 
-#include "ulp.h"
+#include "../ulp/inc/ulp.h"
 
 /* GPS.conf support */
 typedef struct loc_gps_cfg_s
