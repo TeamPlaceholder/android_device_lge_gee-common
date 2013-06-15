@@ -87,17 +87,11 @@ device/lge/gee-common/audio/snd_soc_msm_2x:system/etc/snd_soc_msm/snd_soc_msm_2x
                       device/lge/gee-common/audio/snd_soc_msm_Sitar_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_Sitar_auxpcm \
                       device/lge/gee-common/audio/snd_soc_msm_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_auxpcm \
 
-PRODUCT_PACKAGES += \
-    battery_monitor \
-    battery_shutdown
-
-# Thermal Daemon
+# Configs
 PRODUCT_COPY_FILES += \
-	device/lge/gee-common/thermal/thermald.conf:system/etc/thermald.conf
-
-# EGL Config
-PRODUCT_COPY_FILES += \
-        device/lge/gee-common/egl/egl.cfg:system/lib/egl/egl.cfg
+	device/lge/gee-common/configs/thermald.conf:system/etc/thermald.conf \
+        device/lge/gee-common/configs/egl.cfg:system/lib/egl/egl.cfg \
+	device/lge/gee-common/configs/vold.fstab:system/etc/vold.fstab
 
 # Media
 PRODUCT_COPY_FILES += \
