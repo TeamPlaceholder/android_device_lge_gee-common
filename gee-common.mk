@@ -50,6 +50,7 @@ PRODUCT_PACKAGES += \
     init.qcom.rc \
     init.qcom.usb.rc \
     init.target.rc \
+    init.qcom.bt.sh
     init.qcom.post_boot.sh \
     init.qcom.efs.sync.sh \
     init.qcom.sh \
@@ -59,8 +60,8 @@ PRODUCT_PACKAGES += \
     init.qcom.early_boot.sh \
     init.qcom.mdm_links.sh \
     init.qcom.modem_links.sh \
+    init.qcom.ril.sh \
     init.qcom.usb.sh \
-    init.qcom.thermal_conf.sh \
     init.recovery.qcom.rc \
     ueventd.qcom.rc
 
@@ -101,7 +102,6 @@ PRODUCT_COPY_FILES += \
 # Non-Ramdisk Init Scripts
 PRODUCT_COPY_FILES += \
 	device/lge/gee-common/scripts/kickstart_checker.sh:system/etc/kickstart_checker.sh \
-        device/lge/gee-common/scripts/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
 	device/lge/gee-common/scripts/efsbackup.sh:system/bin/efsbackup.sh
 
 # Keylayouts
