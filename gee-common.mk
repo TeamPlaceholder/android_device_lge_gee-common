@@ -67,74 +67,74 @@ PRODUCT_PACKAGES += \
 
 # WiFi
 PRODUCT_COPY_FILES += \
-	device/lge/gee-common/wifi/WCNSS_cfg.dat:system/vendor/firmware/wlan/prima/WCNSS_cfg.dat \
-	device/lge/gee-common/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
-	device/lge/gee-common/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin \
-        device/lge/gee-common/wifi/wpa_supplicant.conf:obj/etc/wifi/wpa_supplicant.conf \
-        device/lge/gee-common/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
+    device/lge/gee-common/wifi/WCNSS_cfg.dat:system/vendor/firmware/wlan/prima/WCNSS_cfg.dat \
+    device/lge/gee-common/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
+    device/lge/gee-common/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin \
+    device/lge/gee-common/wifi/wpa_supplicant.conf:obj/etc/wifi/wpa_supplicant.conf \
+    device/lge/gee-common/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
 
 # Audio Configuration files
 PRODUCT_COPY_FILES += \
-        device/lge/gee-common/audio/audio_policy.conf:system/etc/audio_policy.conf \
-        device/lge/gee-common/audio/audio_effects.conf:system/etc/audio_effects.conf \
-device/lge/gee-common/audio/snd_soc_msm_2x:system/etc/snd_soc_msm/snd_soc_msm_2x \
-                      device/lge/gee-common/audio/snd_soc_msm_2x_Fusion3:system/etc/snd_soc_msm/snd_soc_msm_2x_Fusion3 \
-                      device/lge/gee-common/audio/snd_soc_msm_2x_Fusion3_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_2x_Fusion3_auxpcm \
-                      device/lge/gee-common/audio/snd_soc_msm_2x_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_2x_auxpcm \
-                      device/lge/gee-common/audio/snd_soc_msm_I2S:system/etc/snd_soc_msm/snd_soc_msm_I2S \
-                      device/lge/gee-common/audio/snd_soc_msm_I2SFusion:system/etc/snd_soc_msm/snd_soc_msm_I2SFusion \
-                      device/lge/gee-common/audio/snd_soc_msm_Sitar:system/etc/snd_soc_msm/snd_soc_msm_Sitar \
-                      device/lge/gee-common/audio/snd_soc_msm_Sitar_Sglte:system/etc/snd_soc_msm/snd_soc_msm_Sitar_Sglte \
-                      device/lge/gee-common/audio/snd_soc_msm_Sitar_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_Sitar_auxpcm \
-                      device/lge/gee-common/audio/snd_soc_msm_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_auxpcm \
+    device/lge/gee-common/audio/audio_policy.conf:system/etc/audio_policy.conf \
+    device/lge/gee-common/audio/audio_effects.conf:system/etc/audio_effects.conf \
+    device/lge/gee-common/audio/snd_soc_msm_2x:system/etc/snd_soc_msm/snd_soc_msm_2x \
+    device/lge/gee-common/audio/snd_soc_msm_2x_Fusion3:system/etc/snd_soc_msm/snd_soc_msm_2x_Fusion3 \
+    device/lge/gee-common/audio/snd_soc_msm_2x_Fusion3_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_2x_Fusion3_auxpcm \
+    device/lge/gee-common/audio/snd_soc_msm_2x_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_2x_auxpcm \
+    device/lge/gee-common/audio/snd_soc_msm_I2S:system/etc/snd_soc_msm/snd_soc_msm_I2S \
+    device/lge/gee-common/audio/snd_soc_msm_I2SFusion:system/etc/snd_soc_msm/snd_soc_msm_I2SFusion \
+    device/lge/gee-common/audio/snd_soc_msm_Sitar:system/etc/snd_soc_msm/snd_soc_msm_Sitar \
+    device/lge/gee-common/audio/snd_soc_msm_Sitar_Sglte:system/etc/snd_soc_msm/snd_soc_msm_Sitar_Sglte \
+    device/lge/gee-common/audio/snd_soc_msm_Sitar_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_Sitar_auxpcm \
+    device/lge/gee-common/audio/snd_soc_msm_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_auxpcm
 
 # Configs
 PRODUCT_COPY_FILES += \
-	device/lge/gee-common/configs/thermald.conf:system/etc/thermald.conf \
-        device/lge/gee-common/configs/egl.cfg:system/lib/egl/egl.cfg \
-	device/lge/gee-common/configs/vold.fstab:system/etc/vold.fstab
+    device/lge/gee-common/configs/thermald.conf:system/etc/thermald.conf \
+    device/lge/gee-common/configs/egl.cfg:system/lib/egl/egl.cfg \
+    device/lge/gee-common/configs/vold.fstab:system/etc/vold.fstab
 
 # Media
 PRODUCT_COPY_FILES += \
-	device/lge/gee-common/media/media_profiles.xml:system/etc/media_profiles.xml \
-	device/lge/gee-common/media/media_codecs.xml:system/etc/media_codecs.xml 
+    device/lge/gee-common/media/media_profiles.xml:system/etc/media_profiles.xml \
+    device/lge/gee-common/media/media_codecs.xml:system/etc/media_codecs.xml
 
 # Non-Ramdisk Init Scripts
 PRODUCT_COPY_FILES += \
-	device/lge/gee-common/scripts/kickstart_checker.sh:system/etc/kickstart_checker.sh \
-	device/lge/gee-common/scripts/efsbackup.sh:system/bin/efsbackup.sh
+    device/lge/gee-common/scripts/kickstart_checker.sh:system/etc/kickstart_checker.sh \
+    device/lge/gee-common/scripts/efsbackup.sh:system/bin/efsbackup.sh
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
-	device/lge/gee-common/keylayouts/Button_Jack.kl:system/usr/keylayout/Button_Jack.kl \
-	device/lge/gee-common/keylayouts/external_kbd.kl:system/usr/keylayout/external_kbd.kl \
-	device/lge/gee-common/keylayouts/keypad_8064.kl:system/usr/keylayout/keypad_8064.kl \
-	device/lge/gee-common/keylayouts/MHLRCP.kl:system/usr/keylayout/MHLRCP.kl \
-	device/lge/gee-common/keylayouts/osp3-input.kl:system/usr/keylayout/osp3-input.kl 
+    device/lge/gee-common/keylayouts/Button_Jack.kl:system/usr/keylayout/Button_Jack.kl \
+    device/lge/gee-common/keylayouts/external_kbd.kl:system/usr/keylayout/external_kbd.kl \
+    device/lge/gee-common/keylayouts/keypad_8064.kl:system/usr/keylayout/keypad_8064.kl \
+    device/lge/gee-common/keylayouts/MHLRCP.kl:system/usr/keylayout/MHLRCP.kl \
+    device/lge/gee-common/keylayouts/osp3-input.kl:system/usr/keylayout/osp3-input.kl
 
 # Input calibration
 PRODUCT_COPY_FILES += \
-        device/lge/gee-common/input/touch_dev.idc:system/usr/idc/touch_dev.idc \
-	device/lge/gee-common/input/osp3-input.idc:system/usr/idc/osp3-input.idc
+    device/lge/gee-common/input/touch_dev.idc:system/usr/idc/touch_dev.idc \
+    device/lge/gee-common/input/osp3-input.idc:system/usr/idc/osp3-input.idc
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
-	frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
-	frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
-	frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
-	frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
-	frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
-	frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
-	frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
-	frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
-	frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
-	frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
-	frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
-	frameworks/native/data/etc/android.hardware.sensor.barometer.xml:system/etc/permissions/android.hardware.sensor.barometer.xml \
-	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
-	frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
-	frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
-	frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml
+    frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
+    frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
+    frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
+    frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+    frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
+    frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
+    frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+    frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
+    frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
+    frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
+    frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
+    frameworks/native/data/etc/android.hardware.sensor.barometer.xml:system/etc/permissions/android.hardware.sensor.barometer.xml \
+    frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
+    frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
+    frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
+    frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml
 
 # NFC packages for gee-common
 PRODUCT_PACKAGES += \
@@ -153,7 +153,7 @@ endif
 
 # Commands to migrate prefs from com.android.nfc3 to com.android.nfc
 PRODUCT_COPY_FILES += \
-        packages/apps/Nfc/migrate_nfc.txt:system/etc/updatecmds/migrate_nfc.txt
+    packages/apps/Nfc/migrate_nfc.txt:system/etc/updatecmds/migrate_nfc.txt
 
 # NFC access control + feature files + configuration
 PRODUCT_COPY_FILES += \
@@ -167,21 +167,21 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/fetch-swv:system/bin/fetch-swv
 
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.opengles.version=131072
+    ro.opengles.version=131072
 
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.sf.lcd_density=320
+    ro.sf.lcd_density=320
 
 # Audio Configuration
 PRODUCT_PROPERTY_OVERRIDES += \
-	persist.audio.handset.mic=dmic \
-	persist.audio.fluence.mode=endfire \
-        persist.audio.lowlatency.rec=false \
-	af.resampler.quality=4
+    persist.audio.handset.mic=dmic \
+    persist.audio.fluence.mode=endfire \
+    persist.audio.lowlatency.rec=false \
+    af.resampler.quality=4
 
 # Ril sends only one RIL_UNSOL_CALL_RING, so set call_ring.multiple to false
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.telephony.call_ring.multiple=0
+    ro.telephony.call_ring.multiple=0
 
 # QC RIL path for rild
 # PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
@@ -190,41 +190,41 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 PRODUCT_PACKAGES += \
-	librs_jni \
-	com.android.future.usb.accessory
+    librs_jni \
+    com.android.future.usb.accessory
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
-	e2fsck
+    e2fsck
 
 PRODUCT_PACKAGES += \
-	libgenlock \
-	libmemalloc \
-	liboverlay \
-	libqdutils \
-	libtilerenderer \
-	libI420colorconvert \
-	hwcomposer.msm8960 \
-	gralloc.msm8960 \
-	copybit.msm8960
+    libgenlock \
+    libmemalloc \
+    liboverlay \
+    libqdutils \
+    libtilerenderer \
+    libI420colorconvert \
+    hwcomposer.msm8960 \
+    gralloc.msm8960 \
+    copybit.msm8960
 
 PRODUCT_PACKAGES += \
-	alsa.msm8960 \
-	audio_policy.msm8064 \
-	audio.primary.msm8960 \
-	audio.a2dp.default \
-	audio.usb.default \
-	audio.r_submix.default \
-	libaudio-resampler
+    alsa.msm8960 \
+    audio_policy.msm8064 \
+    audio.primary.msm8960 \
+    audio.a2dp.default \
+    audio.usb.default \
+    audio.r_submix.default \
+    libaudio-resampler
 
 PRODUCT_PACKAGES += \
-	hci_qcomm_init
+    hci_qcomm_init
 
 PRODUCT_PACKAGES += \
-	power.msm8960
+    power.msm8960
 
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.qualcomm.bt.hci_transport=smd
+    ro.qualcomm.bt.hci_transport=smd
 
 PRODUCT_PACKAGES += \
 #	libmmcamera_interface2 \
@@ -245,11 +245,11 @@ PRODUCT_PACKAGES += \
     libdashplayer
 
 PRODUCT_PACKAGES += \
-	libloc_adapter \
-	libloc_eng \
-	libloc_api_v02 \
-	libgps.utils \
-	gps.msm8960
+    libloc_adapter \
+    libloc_eng \
+    libloc_api_v02 \
+    libgps.utils \
+    gps.msm8960
 
 PRODUCT_COPY_FILES += \
     device/lge/gee-common/gps/gps.conf:system/etc/gps.conf
@@ -259,9 +259,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.extension_library=/system/lib/libqc-opt.so
 
 PRODUCT_PACKAGES += \
-	bdAddrLoader \
-	libwfcu \
-	conn_init
+    bdAddrLoader \
+    libwfcu \
+    conn_init
 
 # QRNGD
 PRODUCT_PACKAGES += qrngd
@@ -273,24 +273,24 @@ PRODUCT_PACKAGES += qrngd
 PRODUCT_PACKAGES += lights.msm8960
 
 PRODUCT_PROPERTY_OVERRIDES += \
-	drm.service.enabled=true
+    drm.service.enabled=true
 
 PRODUCT_PROPERTY_OVERRIDES += \
-	wifi.interface=wlan0 \
-	wifi.supplicant_scan_interval=60 \
-	persist.radio.kickstart=on
+    wifi.interface=wlan0 \
+    wifi.supplicant_scan_interval=60 \
+    persist.radio.kickstart=on
 
 # Enable AAC 5.1 output
 PRODUCT_PROPERTY_OVERRIDES += \
-        media.aac_51_output_enabled=true
+    media.aac_51_output_enabled=true
 
 PRODUCT_PROPERTY_OVERRIDES += \
-	debug.prerotation.disable=1
+    debug.prerotation.disable=1
 
 PRODUCT_PROPERTY_OVERRIDES += \
-        debug.egl.recordable.rgba8888=1
+    debug.egl.recordable.rgba8888=1
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-	persist.sys.usb.config=mtp
+    persist.sys.usb.config=mtp
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
