@@ -179,15 +179,88 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.lowlatency.rec=false \
     af.resampler.quality=4
 
-# Ril sends only one RIL_UNSOL_CALL_RING, so set call_ring.multiple to false
+# RIL sends only one RIL_UNSOL_CALL_RING, so set call_ring.multiple to false
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.call_ring.multiple=0
 
-# QC RIL path for rild
-# PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-#    rild.libpath=/system/lib/libril-qc-qmi-1.so 
+# RIL properties
+PRODUCT_PROPERTY_OVERRIDES += \
+    rild.libpath=/system/lib/libril-qc-qmi-1.so \
+    rild.libargs=-d /dev/smd0 \
+    persist.rild.nitz_plmn= \
+    persist.rild.nitz_long_ons_0= \
+    persist.rild.nitz_long_ons_1= \
+    persist.rild.nitz_long_ons_2= \
+    persist.rild.nitz_long_ons_3= \
+    persist.rild.nitz_short_ons_0= \
+    persist.rild.nitz_short_ons_1= \
+    persist.rild.nitz_short_ons_2= \
+    persist.rild.nitz_short_ons_3= 
+
+# EGL Properties
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.sf.hw=1 \
+    debug.egl.hw=1 \
+    debug.composition.type=dyn \
+    dalvik.vm.heapsize=36m \
+    debug.enable.wl_log=1 \
+    persist.hwc.mdpcomp.enable=true \
+    debug.mdpcomp.logs=0 
+
+# Other build properties
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hdmi.enable=true \
+    lpa.decode=false \
+    tunnel.decode=true \
+    tunnel.audiovideo.decode=true \
+    lpa.use-stagefright=true 
+
+# System Props for the MM modules
+PRODUCT_PROPERTY_OVERRIDES += \
+    media.stagefright.enable-player=true \
+    media.stagefright.enable-http=true \
+    media.stagefright.enable-aac=true \
+    media.stagefright.enable-qcp=true \
+    media.stagefright.enable-fma2dp=true \
+    media.stagefright.enable-scan=true \
+    mmp.enable.3g2=true \
+    media.aac_51_output_enabled=true
 
 PRODUCT_TAGS += dalvik.gc.type-precise
+
+# System Props for audio
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.audio.fluence.mode=endfire \
+    persist.audio.vr.enable=false \
+    persist.audio.handset.mic=digital \
+    persist.audio.lowlatency.rec=false 
+
+# System Prop to select audio resampler quality
+PRODUCT_PROPERTY_OVERRIDES += \
+    af.resampler.quality=255
+
+# System Prop to select MPQAudioPlayer by default on mpq8064
+PRODUCT_PROPERTY_OVERRIDES += \
+    mpq.audio.decode=true
+
+# Simulate sdcard on /data/media
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.fuse_sdcard=true 
+
+# Use a higher text cache width due to our 2GBs of RAM
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hwui.text_cache_width=2048
+
+# Supports warmboot capabilities
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.warmboot.capability=1
+
+#Snapdragon value add features
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.qc.sdk.audio.ssr=false \
+    ro.streaming.video.drs=true \
+    persist.debug.wfd.enable=1 \
+    persist.sys.wfd.virtual=0 
 
 PRODUCT_PACKAGES += \
     librs_jni \
