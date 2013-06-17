@@ -126,8 +126,6 @@ TARGET_NO_RPC := true
 
 TARGET_RELEASETOOLS_EXTENSIONS := device/lge/gee-common
 
-BOARD_HAVE_LOW_LATENCY_AUDIO := true
-
 BOARD_HAS_NO_SELECT_BUTTON := true
 
 # Disable initlogo, LG's framebuffer is weird	
