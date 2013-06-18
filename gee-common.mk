@@ -186,16 +186,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # RIL properties
 PRODUCT_PROPERTY_OVERRIDES += \
     rild.libpath=/system/lib/libril-qc-qmi-1.so \
-    rild.libargs=-d /dev/smd0 \
-    persist.rild.nitz_plmn= \
-    persist.rild.nitz_long_ons_0= \
-    persist.rild.nitz_long_ons_1= \
-    persist.rild.nitz_long_ons_2= \
-    persist.rild.nitz_long_ons_3= \
-    persist.rild.nitz_short_ons_0= \
-    persist.rild.nitz_short_ons_1= \
-    persist.rild.nitz_short_ons_2= \
-    persist.rild.nitz_short_ons_3= 
+    rild.libargs=-d /dev/smd0
 
 # EGL Properties
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -205,7 +196,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapsize=36m \
     debug.enable.wl_log=1 \
     persist.hwc.mdpcomp.enable=true \
-    debug.mdpcomp.logs=0 
+    debug.mdpcomp.logs=0
 
 # Other build properties
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -213,7 +204,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     lpa.decode=false \
     tunnel.decode=true \
     tunnel.audiovideo.decode=true \
-    lpa.use-stagefright=true 
+    lpa.use-stagefright=true
 
 # System Props for the MM modules
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -233,7 +224,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.mode=endfire \
     persist.audio.vr.enable=false \
     persist.audio.handset.mic=digital \
-    persist.audio.lowlatency.rec=false 
+    persist.audio.lowlatency.rec=false
 
 # System Prop to select audio resampler quality
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -245,7 +236,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Simulate sdcard on /data/media
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.fuse_sdcard=true 
+    persist.fuse_sdcard=true
 
 # Use a higher text cache width due to our 2GBs of RAM
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -260,7 +251,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.qc.sdk.audio.ssr=false \
     ro.streaming.video.drs=true \
     persist.debug.wfd.enable=1 \
-    persist.sys.wfd.virtual=0 
+    persist.sys.wfd.virtual=0
 
 PRODUCT_PACKAGES += \
     librs_jni \
