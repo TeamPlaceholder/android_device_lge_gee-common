@@ -205,7 +205,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.hw=1 \
     debug.egl.hw=1 \
     debug.composition.type=dyn \
-    dalvik.vm.heapsize=36m \
     debug.enable.wl_log=1 \
     persist.hwc.mdpcomp.enable=true \
     debug.mdpcomp.logs=0 \
