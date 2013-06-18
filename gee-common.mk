@@ -186,7 +186,19 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # RIL properties
 PRODUCT_PROPERTY_OVERRIDES += \
     rild.libpath=/system/lib/libril-qc-qmi-1.so \
-    rild.libargs=-d /dev/smd0
+    rild.libargs=-d/dev/smd0 \
+    ro.use_data_netmgrd=true \
+    persist.rild.nitz_plmn="" \
+    persist.rild.nitz_long_ons_0="" \
+    persist.rild.nitz_long_ons_1="" \
+    persist.rild.nitz_long_ons_2="" \
+    persist.rild.nitz_long_ons_3="" \
+    persist.rild.nitz_short_ons_0="" \
+    persist.rild.nitz_short_ons_1="" \
+    persist.rild.nitz_short_ons_2="" \
+    persist.rild.nitz_short_ons_3="" \
+    ro.config.ehrpd=true \
+    ro.config.lte=true
 
 # EGL Properties
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -196,7 +208,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapsize=36m \
     debug.enable.wl_log=1 \
     persist.hwc.mdpcomp.enable=true \
-    debug.mdpcomp.logs=0
+    debug.mdpcomp.logs=0 \
+    debug.qctwa.statusbar=1 \
+    debug.qctwa.preservebuf=1 \
+    debug.qc.hardware=true \
+    com.qc.hardware=true
 
 # Other build properties
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -216,6 +232,24 @@ PRODUCT_PROPERTY_OVERRIDES += \
     media.stagefright.enable-scan=true \
     mmp.enable.3g2=true \
     media.aac_51_output_enabled=true
+
+# Smoothness Tweaks
+PRODUCT_PROPERTY_OVERRIDES += \
+    windowsmgr.max_events_per_sec=300 \
+    debug.performance.tuning=1 \
+    video.accelerate.hw=1 \
+    ro.config.hw_quickpoweron=true \
+    ro.max.fling_velocity=12000 \
+    ro.min.fling_velocity=8000 \
+    persist.sys.use.dithering=1 \
+    ro.config.disable.hw_accel=false \
+    persist.sys.ui.hw=1
+
+# Better Signal and Voice Quality
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.cust.tel.eons=1 \
+    ro.ril.enable.amr.wideband=1 \
+    ro.config.hw_fast_dormancy=1
 
 PRODUCT_TAGS += dalvik.gc.type-precise
 
