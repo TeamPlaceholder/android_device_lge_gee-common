@@ -177,10 +177,10 @@ on charger
 #    user camera
 #    group camera system inet input
 
-service thermald /system/bin/thermald
-    class main
-    user root
-    group root
+#service thermald /system/bin/thermald
+#    class main
+#    user root
+#    group root
 
 service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
     user root
