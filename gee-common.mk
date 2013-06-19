@@ -240,7 +240,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.hw_quickpoweron=true \
     ro.max.fling_velocity=12000 \
     ro.min.fling_velocity=8000 \
-    persist.sys.use.dithering=1 \
     ro.config.disable.hw_accel=false \
     persist.sys.ui.hw=1
 
