@@ -239,7 +239,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     windowsmgr.max_events_per_sec=300 \
     debug.performance.tuning=1 \
     video.accelerate.hw=1 \
-    ro.config.hw_quickpoweron=true \
     ro.max.fling_velocity=12000 \
     ro.min.fling_velocity=8000 \
     ro.config.disable.hw_accel=false \
