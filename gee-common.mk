@@ -96,16 +96,8 @@ PRODUCT_COPY_FILES += \
 # Configs
 PRODUCT_COPY_FILES += \
     device/lge/gee-common/configs/thermald.conf:system/etc/thermald.conf \
-    device/lge/gee-common/configs/egl.cfg:system/lib/egl/egl.cfg 
-
-# Vold
-ifeq ($(TARGET_DEVICE),geeb_att)
-PRODUCT_COPY_FILES += \
-    device/lge/gee-common/configs/att_vold.fstab:system/etc/vold.fstab
-else
-PRODUCT_COPY_FILES += \
+    device/lge/gee-common/configs/egl.cfg:system/lib/egl/egl.cfg \
     device/lge/gee-common/configs/vold.fstab:system/etc/vold.fstab
-endif
 
 # Media
 PRODUCT_COPY_FILES += \
