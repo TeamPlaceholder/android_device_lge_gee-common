@@ -28,6 +28,11 @@ DEVICE_PACKAGE_OVERLAYS := device/lge/gee-common/overlay
 PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
+# Enable for debugging
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.debuggable=1 \
+    persist.service.adb.enable=1
+
 PRODUCT_PACKAGES += \
     charger_res_images \
     charger
