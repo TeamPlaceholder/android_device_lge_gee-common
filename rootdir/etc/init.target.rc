@@ -182,9 +182,9 @@ on charger
 #    user root
 #    group root
 
-service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
-    user root
-    disabled
+#service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
+#    user root
+#    disabled
 
 service ks_checker /system/bin/sh /system/etc/kickstart_checker.sh
     class core
