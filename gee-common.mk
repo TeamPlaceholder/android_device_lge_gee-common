@@ -67,6 +67,7 @@ PRODUCT_PACKAGES += \
     init.qcom.modem_links.sh \
     init.qcom.ril.sh \
     init.qcom.usb.sh \
+    init.qcom.wifi.sh \
     init.recovery.qcom.rc \
     ueventd.qcom.rc
 
