@@ -128,9 +128,6 @@ TARGET_RELEASETOOLS_EXTENSIONS := device/lge/gee-common
 
 BOARD_HAS_NO_SELECT_BUTTON := true
 
-# Disable initlogo, LG's framebuffer is weird	
-TARGET_NO_INITLOGO := true
-
 # no hardware camera
 USE_CAMERA_STUB := true
 
