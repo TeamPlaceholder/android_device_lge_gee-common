@@ -109,7 +109,6 @@ PRODUCT_COPY_FILES += \
 
 # Configs
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/thermald.conf:system/etc/thermald.conf \
     $(LOCAL_PATH)/configs/egl.cfg:system/lib/egl/egl.cfg \
     $(LOCAL_PATH)/configs/vold.fstab:system/etc/vold.fstab
 
