@@ -73,55 +73,55 @@ PRODUCT_PACKAGES += \
 
 # WiFi
 PRODUCT_COPY_FILES += \
-    device/lge/gee-common/wifi/WCNSS_cfg.dat:system/vendor/firmware/wlan/prima/WCNSS_cfg.dat \
-    device/lge/gee-common/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
-    device/lge/gee-common/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin \
-    device/lge/gee-common/wifi/wpa_supplicant.conf:obj/etc/wifi/wpa_supplicant.conf \
-    device/lge/gee-common/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
+    $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/vendor/firmware/wlan/prima/WCNSS_cfg.dat \
+    $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
+    $(LOCAL_PATH)/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin \
+    $(LOCAL_PATH)/wifi/wpa_supplicant.conf:obj/etc/wifi/wpa_supplicant.conf \
+    $(LOCAL_PATH)/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
 
 # Audio Configuration files
 PRODUCT_COPY_FILES += \
-    device/lge/gee-common/audio/audio_policy.conf:system/etc/audio_policy.conf \
-    device/lge/gee-common/audio/audio_effects.conf:system/etc/audio_effects.conf \
-    device/lge/gee-common/audio/snd_soc_msm_2x:system/etc/snd_soc_msm/snd_soc_msm_2x \
-    device/lge/gee-common/audio/snd_soc_msm_2x_Fusion3:system/etc/snd_soc_msm/snd_soc_msm_2x_Fusion3 \
-    device/lge/gee-common/audio/snd_soc_msm_2x_Fusion3_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_2x_Fusion3_auxpcm \
-    device/lge/gee-common/audio/snd_soc_msm_2x_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_2x_auxpcm \
-    device/lge/gee-common/audio/snd_soc_msm_I2S:system/etc/snd_soc_msm/snd_soc_msm_I2S \
-    device/lge/gee-common/audio/snd_soc_msm_I2SFusion:system/etc/snd_soc_msm/snd_soc_msm_I2SFusion \
-    device/lge/gee-common/audio/snd_soc_msm_Sitar:system/etc/snd_soc_msm/snd_soc_msm_Sitar \
-    device/lge/gee-common/audio/snd_soc_msm_Sitar_Sglte:system/etc/snd_soc_msm/snd_soc_msm_Sitar_Sglte \
-    device/lge/gee-common/audio/snd_soc_msm_Sitar_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_Sitar_auxpcm \
-    device/lge/gee-common/audio/snd_soc_msm_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_auxpcm
+    $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf \
+    $(LOCAL_PATH)/audio/audio_effects.conf:system/etc/audio_effects.conf \
+    $(LOCAL_PATH)/audio/snd_soc_msm_2x:system/etc/snd_soc_msm/snd_soc_msm_2x \
+    $(LOCAL_PATH)/audio/snd_soc_msm_2x_Fusion3:system/etc/snd_soc_msm/snd_soc_msm_2x_Fusion3 \
+    $(LOCAL_PATH)/audio/snd_soc_msm_2x_Fusion3_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_2x_Fusion3_auxpcm \
+    $(LOCAL_PATH)/audio/snd_soc_msm_2x_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_2x_auxpcm \
+    $(LOCAL_PATH)/audio/snd_soc_msm_I2S:system/etc/snd_soc_msm/snd_soc_msm_I2S \
+    $(LOCAL_PATH)/audio/snd_soc_msm_I2SFusion:system/etc/snd_soc_msm/snd_soc_msm_I2SFusion \
+    $(LOCAL_PATH)/audio/snd_soc_msm_Sitar:system/etc/snd_soc_msm/snd_soc_msm_Sitar \
+    $(LOCAL_PATH)/audio/snd_soc_msm_Sitar_Sglte:system/etc/snd_soc_msm/snd_soc_msm_Sitar_Sglte \
+    $(LOCAL_PATH)/audio/snd_soc_msm_Sitar_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_Sitar_auxpcm \
+    $(LOCAL_PATH)/audio/snd_soc_msm_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_auxpcm
 
 # Configs
 PRODUCT_COPY_FILES += \
-    device/lge/gee-common/configs/thermald.conf:system/etc/thermald.conf \
-    device/lge/gee-common/configs/egl.cfg:system/lib/egl/egl.cfg \
-    device/lge/gee-common/configs/vold.fstab:system/etc/vold.fstab
+    $(LOCAL_PATH)/configs/thermald.conf:system/etc/thermald.conf \
+    $(LOCAL_PATH)/configs/egl.cfg:system/lib/egl/egl.cfg \
+    $(LOCAL_PATH)/configs/vold.fstab:system/etc/vold.fstab
 
 # Media
 PRODUCT_COPY_FILES += \
-    device/lge/gee-common/media/media_profiles.xml:system/etc/media_profiles.xml \
-    device/lge/gee-common/media/media_codecs.xml:system/etc/media_codecs.xml
+    $(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml \
+    $(LOCAL_PATH)/media/media_codecs.xml:system/etc/media_codecs.xml
 
 # Non-Ramdisk Init Scripts
 PRODUCT_COPY_FILES += \
-    device/lge/gee-common/scripts/kickstart_checker.sh:system/etc/kickstart_checker.sh \
-    device/lge/gee-common/scripts/efsbackup.sh:system/bin/efsbackup.sh
+    $(LOCAL_PATH)/scripts/kickstart_checker.sh:system/etc/kickstart_checker.sh \
+    $(LOCAL_PATH)/scripts/efsbackup.sh:system/bin/efsbackup.sh
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
-    device/lge/gee-common/keylayouts/Button_Jack.kl:system/usr/keylayout/Button_Jack.kl \
-    device/lge/gee-common/keylayouts/external_kbd.kl:system/usr/keylayout/external_kbd.kl \
-    device/lge/gee-common/keylayouts/keypad_8064.kl:system/usr/keylayout/keypad_8064.kl \
-    device/lge/gee-common/keylayouts/MHLRCP.kl:system/usr/keylayout/MHLRCP.kl \
-    device/lge/gee-common/keylayouts/osp3-input.kl:system/usr/keylayout/osp3-input.kl
+    $(LOCAL_PATH)/keylayouts/Button_Jack.kl:system/usr/keylayout/Button_Jack.kl \
+    $(LOCAL_PATH)/keylayouts/external_kbd.kl:system/usr/keylayout/external_kbd.kl \
+    $(LOCAL_PATH)/keylayouts/keypad_8064.kl:system/usr/keylayout/keypad_8064.kl \
+    $(LOCAL_PATH)/keylayouts/MHLRCP.kl:system/usr/keylayout/MHLRCP.kl \
+    $(LOCAL_PATH)/keylayouts/osp3-input.kl:system/usr/keylayout/osp3-input.kl
 
 # Input calibration
 PRODUCT_COPY_FILES += \
-    device/lge/gee-common/input/touch_dev.idc:system/usr/idc/touch_dev.idc \
-    device/lge/gee-common/input/osp3-input.idc:system/usr/idc/osp3-input.idc
+    $(LOCAL_PATH)/input/touch_dev.idc:system/usr/idc/touch_dev.idc \
+    $(LOCAL_PATH)/input/osp3-input.idc:system/usr/idc/osp3-input.idc
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
@@ -154,9 +154,9 @@ PRODUCT_PACKAGES += \
 
 # NFCEE access control
 ifeq ($(TARGET_BUILD_VARIANT),user)
-    NFCEE_ACCESS_PATH := device/lge/gee-common/nfc/nfcee_access.xml
+    NFCEE_ACCESS_PATH := $(LOCAL_PATH)/nfc/nfcee_access.xml
 else
-    NFCEE_ACCESS_PATH := device/lge/gee-common/nfc/nfcee_access_debug.xml
+    NFCEE_ACCESS_PATH := $(LOCAL_PATH)/nfc/nfcee_access_debug.xml
 endif
 
 # Commands to migrate prefs from com.android.nfc3 to com.android.nfc
@@ -359,7 +359,7 @@ PRODUCT_PACKAGES += \
     gps.msm8960
 
 PRODUCT_COPY_FILES += \
-    device/lge/gee-common/gps/gps.conf:system/etc/gps.conf
+    $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf
 
 # QC Perf
 PRODUCT_PROPERTY_OVERRIDES += \
