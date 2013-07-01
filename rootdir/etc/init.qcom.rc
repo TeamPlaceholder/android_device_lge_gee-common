@@ -635,6 +635,12 @@ service profiler_daemon /system/bin/profiler_daemon
 service sdcard /system/bin/sdcard /data/media /mnt/shell/emulated 1023 1023
     class late_start
 
+service conn_init /system/bin/logwrapper /system/bin/conn_init
+    class late_start
+    user system
+    group system wifi
+    oneshot
+
 service macloader /system/bin/macloader
     class main
     oneshot
