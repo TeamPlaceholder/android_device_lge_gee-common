@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Copyright (c) 2012, Code Aurora Forum. All rights reserved.
+# Copyright (c) 2012, The Linux Foundation. All rights reserved.
 # Copyright (c) 2012, LG Electronics Inc. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -11,7 +11,7 @@
 #       copyright notice, this list of conditions and the following
 #       disclaimer in the documentation and/or other materials provided
 #       with the distribution.
-#     * Neither the name of Code Aurora Forum, Inc. nor the names of its
+#     * Neither the name of The Linux Foundation. nor the names of its
 #       contributors may be used to endorse or promote products derived
 #      from this software without specific prior written permission.
 #
@@ -26,13 +26,6 @@
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#
-
-#
-# Allow unique persistent serial numbers for devices connected via usb
-# User needs to set unique usb serial number to persist.usb.serialno and
-# if persistent serial number is not set then Update USB serial number if
-# passed from command line
 #
 
 #
@@ -107,4 +100,75 @@ else
             ;;
         * ) ;; #USB persist config exists, do nothing
     esac
-fi
+
+#
+# Add support for exposing lun0 as cdrom in mass-storage
+#
+target=`getprop ro.product.device`
+cdromname="/system/etc/cdrom_install.iso"
+cdromenable=`getprop persist.service.cdrom.enable`
+case "$target" in
+        "msm7627a")
+                case "$cdromenable" in
+                        0)
+                                echo "" > /sys/class/android_usb/android0/f_mass_storage/lun0/file
+                                ;;
+                        1)
+                                echo "mounting usbcdrom lun"
+                                echo $cdromname > /sys/class/android_usb/android0/f_mass_storage/lun0/file
+                                ;;
+                esac
+                ;;
+esac
+
+#
+# Select USB BAM - 2.0 or 3.0
+#
+case "$target" in
+    "msm8974")
+        echo hsusb > /sys/bus/platform/devices/usb_bam/enable
+    ;;
+esac
+
+#
+# set module params for embedded rmnet devices
+#
+rmnetmux=`getprop persist.rmnet.mux`
+case "$baseband" in
+    "mdm" | "dsda" | "sglte2")
+        case "$rmnetmux" in
+            "enabled")
+                    echo 1 > /sys/module/rmnet_usb/parameters/mux_enabled
+                    echo 8 > /sys/module/rmnet_usb/parameters/no_fwd_rmnet_links
+                    echo 17 > /sys/module/rmnet_usb/parameters/no_rmnet_insts_per_dev
+            ;;
+        esac
+        echo 1 > /sys/module/rmnet_usb/parameters/rmnet_data_init
+        # Allow QMUX daemon to assign port open wait time
+        chown radio.radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
+    ;;
+    "dsda2")
+          echo 2 > /sys/module/rmnet_usb/parameters/no_rmnet_devs
+          echo hsicctl,hsusbctl > /sys/module/rmnet_usb/parameters/rmnet_dev_names
+          case "$rmnetmux" in
+               "enabled") #mux is neabled on both mdms
+                      echo 3 > /sys/module/rmnet_usb/parameters/mux_enabled
+                      echo 8 > /sys/module/rmnet_usb/parameters/no_fwd_rmnet_links
+                      echo 17 > write /sys/module/rmnet_usb/parameters/no_rmnet_insts_per_dev
+               ;;
+               "enabled_hsic") #mux is enabled on hsic mdm
+                      echo 1 > /sys/module/rmnet_usb/parameters/mux_enabled
+                      echo 8 > /sys/module/rmnet_usb/parameters/no_fwd_rmnet_links
+                      echo 17 > /sys/module/rmnet_usb/parameters/no_rmnet_insts_per_dev
+               ;;
+               "enabled_hsusb") #mux is enabled on hsusb mdm
+                      echo 2 > /sys/module/rmnet_usb/parameters/mux_enabled
+                      echo 8 > /sys/module/rmnet_usb/parameters/no_fwd_rmnet_links
+                      echo 17 > /sys/module/rmnet_usb/parameters/no_rmnet_insts_per_dev
+               ;;
+          esac
+          echo 1 > /sys/module/rmnet_usb/parameters/rmnet_data_init
+          # Allow QMUX daemon to assign port open wait time
+          chown radio.radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
+    ;;
+esac
