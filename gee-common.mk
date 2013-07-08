@@ -205,8 +205,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Our Modem responds slowly
 PRODUCT_PROPERTY_OVERRIDES += \
-        ro.telephony.slow_modem=1
-
+    ro.telephony.slow_modem=1
 
 # Do not power down SIM card when modem is sent to Low Power Mode.
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -350,11 +349,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.qualcomm.bt.hci_transport=smd
 
+# Camera
 PRODUCT_PACKAGES += \
-#	libmmcamera_interface2 \
-#	libmmcamera_interface
+	camera.msm8960
+	libmmcamera_interface2 \
+	libmmcamera_interface
 
-# Omx
+# OMX
 PRODUCT_PACKAGES += \
     libdivxdrmdecrypt \
     libmm-omxcore \
@@ -366,8 +367,10 @@ PRODUCT_PACKAGES += \
     libOmxAmrEnc \
     libOmxEvrcEnc \
     libOmxQcelp13Enc \
-    libdashplayer
+    libdashplayer \
+    libc2dcolorconvert
 
+#GPS
 PRODUCT_PACKAGES += \
     libloc_adapter \
     libloc_eng \
@@ -389,9 +392,6 @@ PRODUCT_PACKAGES += \
 
 # QRNGD
 PRODUCT_PACKAGES += qrngd
-
-# Camera
-#PRODUCT_PACKAGES += camera.msm8960
 
 # Lights
 PRODUCT_PACKAGES += lights.msm8960

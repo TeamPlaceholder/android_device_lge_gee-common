@@ -128,13 +128,8 @@ TARGET_RELEASETOOLS_EXTENSIONS := device/lge/gee-common
 
 BOARD_HAS_NO_SELECT_BUTTON := true
 
-# no hardware camera
-USE_CAMERA_STUB := true
-
 # Use CM PowerHAL
 TARGET_PROVIDES_POWERHAL := true
 
 # We provide our own liblight
 TARGET_PROVIDES_LIBLIGHT := true
-
-
