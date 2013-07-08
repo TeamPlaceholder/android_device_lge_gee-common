@@ -100,6 +100,7 @@ else
             ;;
         * ) ;; #USB persist config exists, do nothing
     esac
+fi
 
 #
 # Add support for exposing lun0 as cdrom in mass-storage
@@ -133,6 +134,7 @@ esac
 #
 # set module params for embedded rmnet devices
 #
+baseband=`getprop ro.baseband`
 rmnetmux=`getprop persist.rmnet.mux`
 case "$baseband" in
     "mdm" | "dsda" | "sglte2")
