@@ -351,7 +351,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-	camera.msm8960
 	libmmcamera_interface2 \
 	libmmcamera_interface
 
