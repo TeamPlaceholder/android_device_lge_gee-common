@@ -105,6 +105,10 @@ on post-fs-data
     # adjust vibrator amplitude
     write /sys/class/timed_output/vibrator/amp 70
 
+    # communicate with mpdecision and thermald
+    mkdir /dev/socket/mpdecision 0770 system system
+    chmod 2770 /dev/socket/mpdecision
+
     # Enable Power modes and set the CPU Freq Sampling rates
     write /sys/module/rpm_resources/enable_low_power/L2_cache 1
     write /sys/module/rpm_resources/enable_low_power/pxo 1
@@ -180,14 +184,13 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     user camera
     group camera system inet input
 
-#service thermald /system/bin/thermald
-#    class main
-#    user root
-#    group root
+service thermald /system/bin/thermald
+    class main
+    user root
+    group root
 
-#service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
-#    user root
-#    disabled
+service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
+    user root
 
 service ks_checker /system/bin/sh /system/etc/kickstart_checker.sh
     class core
