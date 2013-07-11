@@ -205,7 +205,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Our Modem responds slowly
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.telephony.slow_modem=1
+    ro.telephony.slowModem=1
 
 # Do not power down SIM card when modem is sent to Low Power Mode.
 PRODUCT_PROPERTY_OVERRIDES += \
