@@ -189,8 +189,8 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
 #    user root
 #    group root
 
-service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
-    user root
+#service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
+#    user root
 
 service ks_checker /system/bin/sh /system/etc/kickstart_checker.sh
     class core
