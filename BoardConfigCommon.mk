@@ -53,7 +53,7 @@ BOARD_KERNEL_BASE := 0x80200000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 TARGET_KERNEL_SOURCE := kernel/lge/gee
-BOARD_KERNEL_CMDLINE := console=ttySHL0,115200,n8 androidboot.hardware=qcom lpj=67677 maxcpus=2
+BOARD_KERNEL_CMDLINE := console=ttySHL0,115200,n8 androidboot.hardware=qcom lpj=67677
 
 BOARD_USES_ALSA_AUDIO:= true
 BOARD_USES_FLUENCE_INCALL := true
@@ -85,7 +85,7 @@ BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 WIFI_DRIVER_FW_PATH_STA := "sta"
 WIFI_DRIVER_FW_PATH_AP  := "ap"
 
-# Flags 
+# Flags
 COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE
 
 # QCOM hardware
