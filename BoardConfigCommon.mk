@@ -135,3 +135,6 @@ TARGET_PROVIDES_POWERHAL := true
 
 # We provide our own liblight
 TARGET_PROVIDES_LIBLIGHT := true
+
+#Disable Initlogo because it flickers when enabled and is not worth having
+TARGET_NO_INITLOGO := true
