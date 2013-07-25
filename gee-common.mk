@@ -109,8 +109,7 @@ PRODUCT_COPY_FILES += \
 
 # Configs
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/egl.cfg:system/lib/egl/egl.cfg \
-    $(LOCAL_PATH)/configs/vold.fstab:system/etc/vold.fstab
+    $(LOCAL_PATH)/configs/egl.cfg:system/lib/egl/egl.cfg
 
 # Media
 PRODUCT_COPY_FILES += \
