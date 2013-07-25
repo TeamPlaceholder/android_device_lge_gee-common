@@ -395,6 +395,10 @@ PRODUCT_PACKAGES += \
     libwfcu \
     conn_init
 
+# Keystore
+PRODUCT_PACKAGES += \
+  keystore.msm8960
+
 # QRNGD
 PRODUCT_PACKAGES += qrngd
 
