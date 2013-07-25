@@ -154,7 +154,9 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
-    frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml
+    frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
+
+frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml
 
 # NFC packages for gee-common
 PRODUCT_PACKAGES += \
@@ -187,7 +189,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/fetch-swv:system/bin/fetch-swv
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.opengles.version=131072
+    ro.opengles.version=196608
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=320
@@ -232,14 +234,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.hw=1 \
     debug.egl.hw=1 \
-    debug.composition.type=gpu \
-    debug.enabletr=true \
-    ro.hwui.renderer.disable_opaque=true \
-    persist.hwc.mdpcomp.enable=true \
-    debug.mdpcomp.maxlayer=3 \
-    debug.egl.buffcount=4 \
-    dev.pm.dyn_samplingrate=1 \
-    dev.pm.gpu_samplingrate=1 \
+    debug.composition.type=dyn \
     debug.enable.wl_log=1 \
     persist.hwc.mdpcomp.enable=true \
     debug.mdpcomp.logs=0 \
@@ -274,8 +269,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     video.accelerate.hw=1 \
     ro.max.fling_velocity=12000 \
     ro.min.fling_velocity=8000 \
-    persist.sys.scrollingcache=4 \
-    persist.sys.smoothscrollbar=true \
     ro.config.disable.hw_accel=false \
     persist.sys.ui.hw=1
 
@@ -425,3 +418,4 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
+
