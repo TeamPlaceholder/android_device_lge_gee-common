@@ -137,5 +137,8 @@ TARGET_PROVIDES_POWERHAL := true
 # We provide our own liblight
 TARGET_PROVIDES_LIBLIGHT := true
 
-#Disable Initlogo because it flickers when enabled and is not worth having
+# Disable Initlogo because it flickers when enabled and is not worth having
 TARGET_NO_INITLOGO := true
+
+# Have Camera HAL in the device source 
+USE_DEVICE_SPECIFIC_CAMERA := true
