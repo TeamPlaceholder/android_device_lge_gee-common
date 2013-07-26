@@ -44,7 +44,7 @@ BOARD_VENDOR := lge
 ARCH_ARM_HIGH_OPTIMIZATION := true
 
 # Enable various prefetch optimizations
-COMMON_GLOBAL_CFLAGS += -D__ARM_USE_PLD -D__ARM_CACHE_LINE_SIZE=64 -DNEW_ION_API -DQCOM_BSP -DQCOM_BSP_CAMERA_ABI_HACK
+COMMON_GLOBAL_CFLAGS += -D__ARM_USE_PLD -D__ARM_CACHE_LINE_SIZE=64 -DNEW_ION_API -DQCOM_BSP_CAMERA_ABI_HACK
 
 #Include our own header for GPS hal
 TARGET_SPECIFIC_HEADER_PATH := device/lge/gee-common/include
@@ -143,3 +143,37 @@ TARGET_NO_INITLOGO := true
 
 # Have Camera HAL in the device source 
 USE_DEVICE_SPECIFIC_CAMERA := true
+
+# SELinux
+BOARD_SEPOLICY_DIRS += \
+        device/lge/gee-common/sepolicy
+
+BOARD_SEPOLICY_UNION += \
+	file_contexts \
+	property_contexts \
+	te_macros \
+	bluetooth_loader.te \
+	bridge.te \
+	camera.te \
+	conn_init.te \
+	device.te \
+	dhcp.te \
+	domain.te \
+	drmserver.te \
+	file.te \
+	kickstart.te \
+	init.te \
+	mediaserver.te \
+	mpdecision.te \
+	netmgrd.te \
+	property.te \
+	qmux.te \
+	rild.te \
+	rmt.te \
+	sensors.te \
+	surfaceflinger.te \
+	system.te \
+	tee.te \
+	thermald.te \
+	ueventd.te \
+	wpa_supplicant.te
