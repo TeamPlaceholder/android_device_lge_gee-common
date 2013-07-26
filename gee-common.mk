@@ -160,8 +160,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
-
-frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml
+    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml
 
 # NFC packages for gee-common
 PRODUCT_PACKAGES += \
@@ -338,7 +337,6 @@ PRODUCT_PACKAGES += \
     liboverlay \
     libqdutils \
     libtilerenderer \
-    libI420colorconvert \
     hwcomposer.msm8960 \
     gralloc.msm8960 \
     copybit.msm8960
