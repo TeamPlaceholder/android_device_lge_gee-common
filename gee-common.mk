@@ -421,6 +421,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     media.aac_51_output_enabled=true
 
+#Add QCOM parsers    
+#33395 is sum of supported format flags in AAL
+#Formats: AVI AC3 ASF AAC QCP DTS 3G2
+mm.enable.qcom_parser=33395
+
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.prerotation.disable=1
 
