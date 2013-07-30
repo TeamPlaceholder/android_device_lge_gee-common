@@ -9,7 +9,7 @@
  *       copyright notice, this list of conditions and the following
  *       disclaimer in the documentation and/or other materials provided
  *       with the distribution.
- *     * Neither the name of The Linux Foundation nor the names of its
+ *     * Neither the name of The Linux Foundation, nor the names of its
  *       contributors may be used to endorse or promote products derived
  *       from this software without specific prior written permission.
  *
@@ -105,6 +105,7 @@ static loc_param_s_type loc_parameter_table[] =
   {"SENSOR_ALGORITHM_CONFIG_MASK",   &gps_conf.SENSOR_ALGORITHM_CONFIG_MASK,   NULL, 'n'},
   {"QUIPC_ENABLED",                  &gps_conf.QUIPC_ENABLED,                  NULL, 'n'},
   {"LPP_PROFILE",                    &gps_conf.LPP_PROFILE,                    NULL, 'n'},
+  {"A_GLONASS_POS_PROTOCOL_SELECT",  &gps_conf.A_GLONASS_POS_PROTOCOL_SELECT,  NULL, 'n'},
 };
 
 static void loc_default_parameters(void)
@@ -145,12 +146,17 @@ static void loc_default_parameters(void)
 
       /* LTE Positioning Profile configuration is disable by default*/
    gps_conf.LPP_PROFILE = 0;
+
+   /*By default no positioning protocol is selected on A-GLONASS system*/
+   gps_conf.A_GLONASS_POS_PROTOCOL_SELECT = 0;
 }
 
 LocEngContext::LocEngContext(gps_create_thread threadCreator) :
     deferred_q((const void*)loc_eng_create_msg_q()),
+#ifdef FEATURE_ULP
     //TODO: should we conditionally create ulp msg q?
     ulp_q((const void*)loc_eng_create_msg_q()),
+#endif
     deferred_action_thread(threadCreator("loc_eng",loc_eng_deferred_action_thread, this)),
     counter(0)
 {
@@ -187,7 +193,9 @@ void LocEngContext::drop()
             pthread_cond_wait(&cond, &lock);
 
             msg_q_destroy((void**)&deferred_q);
+#ifdef FEATURE_ULP
             msg_q_destroy((void**)&ulp_q);
+#endif
             delete me;
             me = NULL;
         }
@@ -214,8 +222,6 @@ static void loc_eng_process_conn_request(loc_eng_data_s_type &loc_eng_data,
 static void loc_eng_agps_close_status(loc_eng_data_s_type &loc_eng_data, int is_succ);
 static void loc_eng_handle_engine_down(loc_eng_data_s_type &loc_eng_data) ;
 static void loc_eng_handle_engine_up(loc_eng_data_s_type &loc_eng_data) ;
-static int loc_eng_set_privacy(loc_eng_data_s_type &loc_eng_data,
-                               int8_t privacy_setting);
 
 static char extra_data[100];
 /*********************************************************************
@@ -283,12 +289,6 @@ int loc_eng_init(loc_eng_data_s_type &loc_eng_data, LocCallbacks* callbacks,
         return ret_val;
     }
 
-    if (NULL != loc_eng_data.context) {
-        // Current loc_eng_cleanup keeps context initialized, so must enable
-        // here too.
-        loc_eng_set_privacy(loc_eng_data, 1);
-    }
-
     STATE_CHECK((NULL == loc_eng_data.context),
                 "instance already initialized", return 0);
 
@@ -326,9 +326,15 @@ int loc_eng_init(loc_eng_data_s_type &loc_eng_data, LocCallbacks* callbacks,
         loc_eng_data.generateNmea = false;
     }
 
+#ifdef FEATURE_ULP
     LocEng locEngHandle(&loc_eng_data, event, loc_eng_data.acquire_wakelock_cb,
                         loc_eng_data.release_wakelock_cb, loc_eng_msg_sender, loc_external_msg_sender,
                         callbacks->location_ext_parser, callbacks->sv_ext_parser);
+#else
+    LocEng locEngHandle(&loc_eng_data, event, loc_eng_data.acquire_wakelock_cb,
+                        loc_eng_data.release_wakelock_cb, loc_eng_msg_sender,
+                        callbacks->location_ext_parser, callbacks->sv_ext_parser);
+#endif
     loc_eng_data.client_handle = LocApiAdapter::getLocApiAdapter(locEngHandle);
 
     if (NULL == loc_eng_data.client_handle) {
@@ -346,10 +352,6 @@ int loc_eng_init(loc_eng_data_s_type &loc_eng_data, LocCallbacks* callbacks,
            LOC_LOGD("loc_eng_init client open failed, %d more tries", tries);
            sleep(1);
        }
-
-        if (LOC_API_ADAPTER_ERR_SUCCESS == ret_val) {
-            loc_eng_set_privacy(loc_eng_data, 1);
-        }
     }
 
     EXIT_LOG(%d, ret_val);
@@ -378,6 +380,11 @@ static int loc_eng_reinit(loc_eng_data_s_type &loc_eng_data)
             new loc_eng_msg_sensor_control_config(&loc_eng_data, gps_conf.SENSOR_USAGE));
         msg_q_snd((void*)((LocEngContext*)(loc_eng_data.context))->deferred_q,
                   sensor_control_config_msg, loc_eng_free_msg);
+
+        loc_eng_msg_a_glonass_protocol *a_glonass_protocol_msg(new loc_eng_msg_a_glonass_protocol(&loc_eng_data,
+                                                                          gps_conf.A_GLONASS_POS_PROTOCOL_SELECT));
+        msg_q_snd((void*)((LocEngContext*)(loc_eng_data.context))->deferred_q,
+                  a_glonass_protocol_msg, loc_eng_free_msg);
 
         /* Make sure at least one of the sensor property is specified by the user in the gps.conf file. */
         if( gps_conf.GYRO_BIAS_RANDOM_WALK_VALID ||
@@ -463,19 +470,19 @@ void loc_eng_cleanup(loc_eng_data_s_type &loc_eng_data)
         loc_eng_stop(loc_eng_data);
     }
 
-    loc_eng_set_privacy(loc_eng_data, 0);
-
 #if 0 // can't afford to actually clean up, for many reason.
 
     ((LocEngContext*)(loc_eng_data.context))->drop();
     loc_eng_data.context = NULL;
 
+#ifdef FEATURE_ULP
     // De-initialize ulp
     if (locEngUlpInf != NULL)
     {
         locEngUlpInf = NULL;
         msg_q_destroy( &loc_eng_data.ulp_q);
     }
+#endif
 
     if (loc_eng_data.client_handle != NULL)
     {
@@ -484,17 +491,8 @@ void loc_eng_cleanup(loc_eng_data_s_type &loc_eng_data)
         loc_eng_data.client_handle = NULL;
     }
 
-#ifdef FEATURE_GNSS_BIT_API
-    {
-        char baseband[PROPERTY_VALUE_MAX];
-        property_get("ro.baseband", baseband, "msm");
-        if ((strcmp(baseband,"svlte2a") == 0))
-        {
-            loc_eng_dmn_conn_loc_api_server_unblock();
-            loc_eng_dmn_conn_loc_api_server_join();
-        }
-    }
-#endif /* FEATURE_GNSS_BIT_API */
+    loc_eng_dmn_conn_loc_api_server_unblock();
+    loc_eng_dmn_conn_loc_api_server_join();
 
 #endif
 
@@ -523,13 +521,16 @@ int loc_eng_start(loc_eng_data_s_type &loc_eng_data)
    ENTRY_LOG_CALLFLOW();
    INIT_CHECK(loc_eng_data.context, return -1);
 
+#ifdef FEATURE_ULP
    if((loc_eng_data.ulp_initialized == true) && (gps_conf.CAPABILITIES & ULP_CAPABILITY))
    {
        //Pass the start messgage to ULP if present & activated
        loc_eng_msg *msg(new loc_eng_msg(&loc_eng_data, ULP_MSG_START_FIX));
        msg_q_snd( (void*)((LocEngContext*)(loc_eng_data.context))->ulp_q,
                   msg, loc_eng_free_msg);
-   }else
+   }
+   else
+#endif
    {
        loc_eng_msg *msg(new loc_eng_msg(&loc_eng_data, LOC_ENG_MSG_START_FIX));
        msg_q_snd((void*)((LocEngContext*)(loc_eng_data.context))->deferred_q,
@@ -580,13 +581,16 @@ int loc_eng_stop(loc_eng_data_s_type &loc_eng_data)
     ENTRY_LOG_CALLFLOW();
     INIT_CHECK(loc_eng_data.context, return -1);
 
+#ifdef FEATURE_ULP
     if((loc_eng_data.ulp_initialized == true) && (gps_conf.CAPABILITIES & ULP_CAPABILITY))
     {
         //Pass the start messgage to ULP if present & activated
         loc_eng_msg *msg(new loc_eng_msg(&loc_eng_data, ULP_MSG_STOP_FIX));
         msg_q_snd( (void*)((LocEngContext*)(loc_eng_data.context))->ulp_q,
                    msg, loc_eng_free_msg);
-    }else
+    }
+    else
+#endif
     {
         loc_eng_msg *msg(new loc_eng_msg(&loc_eng_data, LOC_ENG_MSG_STOP_FIX));
         msg_q_snd((void*)((LocEngContext*)(loc_eng_data.context))->deferred_q,
@@ -877,29 +881,17 @@ void loc_eng_agps_init(loc_eng_data_s_type &loc_eng_data, AGpsCallbacks* callbac
     loc_eng_data.agnss_nif = new AgpsStateMachine(loc_eng_data.agps_status_cb,
                                                   AGPS_TYPE_SUPL,
                                                   false);
+#ifdef FEATURE_IPV6
     loc_eng_data.internet_nif = new AgpsStateMachine(loc_eng_data.agps_status_cb,
                                                      AGPS_TYPE_WWAN_ANY,
                                                      false);
     loc_eng_data.wifi_nif = new AgpsStateMachine(loc_eng_data.agps_status_cb,
                                                  AGPS_TYPE_WIFI,
                                                  true);
+#endif
 
-#ifdef FEATURE_GNSS_BIT_API
-    {
-        char baseband[PROPERTY_VALUE_MAX];
-        property_get("ro.baseband", baseband, "msm");
-        if ((strcmp(baseband,"svlte2a") == 0) ||
-            (strcmp(baseband,"sglte") == 0) ||
-            (strcmp(baseband,"msm") == 0))
-        {
-            loc_eng_dmn_conn_loc_api_server_launch(callbacks->create_thread_cb,
+    loc_eng_dmn_conn_loc_api_server_launch(callbacks->create_thread_cb,
                                                    NULL, NULL, &loc_eng_data);
-        } else {
-            LOC_LOGD("%s:%d] loc_eng_dmn_conn_loc_api_server was not initialized.baseband = %s\n",
-            __func__, __LINE__, baseband);
-        }
-    }
-#endif /* FEATURE_GNSS_BIT_API */
 
     loc_eng_agps_reinit(loc_eng_data);
     EXIT_LOG(%s, VOID_RET);
@@ -922,6 +914,7 @@ SIDE EFFECTS
    N/A
 
 ===========================================================================*/
+#ifdef FEATURE_IPV6
 int loc_eng_agps_open(loc_eng_data_s_type &loc_eng_data, AGpsType agpsType,
                      const char* apn, AGpsBearerType bearerType)
 {
@@ -947,6 +940,33 @@ int loc_eng_agps_open(loc_eng_data_s_type &loc_eng_data, AGpsType agpsType,
     EXIT_LOG(%d, 0);
     return 0;
 }
+#else
+int loc_eng_agps_open(loc_eng_data_s_type &loc_eng_data,
+                     const char* apn)
+{
+    ENTRY_LOG_CALLFLOW();
+    INIT_CHECK(loc_eng_data.context && loc_eng_data.agps_status_cb,
+               return -1);
+
+    if (apn == NULL)
+    {
+        LOC_LOGE("APN Name NULL\n");
+        return 0;
+    }
+
+    LOC_LOGD("loc_eng_agps_open APN name = [%s]", apn);
+
+    int apn_len = smaller_of(strlen (apn), MAX_APN_LEN);
+    loc_eng_msg_atl_open_success *msg(
+        new loc_eng_msg_atl_open_success(&loc_eng_data, apn,
+                                        apn_len));
+    msg_q_snd((void*)((LocEngContext*)(loc_eng_data.context))->deferred_q,
+              msg, loc_eng_free_msg);
+
+    EXIT_LOG(%d, 0);
+    return 0;
+}
+#endif
 
 /*===========================================================================
 FUNCTION    loc_eng_agps_closed
@@ -965,6 +985,7 @@ SIDE EFFECTS
    N/A
 
 ===========================================================================*/
+#ifdef FEATURE_IPV6
 int loc_eng_agps_closed(loc_eng_data_s_type &loc_eng_data, AGpsType agpsType)
 {
     ENTRY_LOG_CALLFLOW();
@@ -978,6 +999,21 @@ int loc_eng_agps_closed(loc_eng_data_s_type &loc_eng_data, AGpsType agpsType)
     EXIT_LOG(%d, 0);
     return 0;
 }
+#else
+int loc_eng_agps_closed(loc_eng_data_s_type &loc_eng_data)
+{
+    ENTRY_LOG_CALLFLOW();
+    INIT_CHECK(loc_eng_data.context && loc_eng_data.agps_status_cb,
+               return -1);
+
+    loc_eng_msg_atl_closed *msg(new loc_eng_msg_atl_closed(&loc_eng_data));
+    msg_q_snd((void*)((LocEngContext*)(loc_eng_data.context))->deferred_q,
+              msg, loc_eng_free_msg);
+
+    EXIT_LOG(%d, 0);
+    return 0;
+}
+#endif
 
 /*===========================================================================
 FUNCTION    loc_eng_agps_open_failed
@@ -996,6 +1032,7 @@ SIDE EFFECTS
    N/A
 
 ===========================================================================*/
+#ifdef FEATURE_IPV6
 int loc_eng_agps_open_failed(loc_eng_data_s_type &loc_eng_data, AGpsType agpsType)
 {
     ENTRY_LOG_CALLFLOW();
@@ -1009,6 +1046,21 @@ int loc_eng_agps_open_failed(loc_eng_data_s_type &loc_eng_data, AGpsType agpsTyp
     EXIT_LOG(%d, 0);
     return 0;
 }
+#else
+int loc_eng_agps_open_failed(loc_eng_data_s_type &loc_eng_data)
+{
+    ENTRY_LOG_CALLFLOW();
+    INIT_CHECK(loc_eng_data.context && loc_eng_data.agps_status_cb,
+               return -1);
+
+    loc_eng_msg_atl_open_failed *msg(new loc_eng_msg_atl_open_failed(&loc_eng_data));
+    msg_q_snd((void*)((LocEngContext*)(loc_eng_data.context))->deferred_q,
+              msg, loc_eng_free_msg);
+
+    EXIT_LOG(%d, 0);
+    return 0;
+}
+#endif
 
 /*===========================================================================
 
@@ -1300,7 +1352,9 @@ void loc_eng_handle_engine_up(loc_eng_data_s_type &loc_eng_data)
 
     if (loc_eng_data.agps_status_cb != NULL) {
         loc_eng_data.agnss_nif->dropAllSubscribers();
+#ifdef FEATURE_IPV6
         loc_eng_data.internet_nif->dropAllSubscribers();
+#endif
 
         loc_eng_agps_reinit(loc_eng_data);
     }
@@ -1444,6 +1498,13 @@ static void loc_eng_deferred_action_thread(void* arg)
         }
         break;
 
+        case LOC_ENG_MSG_A_GLONASS_PROTOCOL:
+        {
+            loc_eng_msg_a_glonass_protocol *svMsg = (loc_eng_msg_a_glonass_protocol*)msg;
+            loc_eng_data_p->client_handle->setAGLONASSProtocol(svMsg->a_glonass_protocol);
+        }
+        break;
+
         case LOC_ENG_MSG_SUPL_VERSION:
         {
             loc_eng_msg_suple_version *svMsg = (loc_eng_msg_suple_version*)msg;
@@ -1522,9 +1583,11 @@ static void loc_eng_deferred_action_thread(void* arg)
                     //   2.2.1 there is inaccuracy; and
                     //   2.2.2 we care about inaccuracy; and
                     //   2.2.3 the inaccuracy exceeds our tolerance
-                    else if ((LOC_SESS_SUCCESS == rpMsg->status &&
-                              (((LOCATION_HAS_SOURCE_INFO & rpMsg->location.flags) &&
+                    else if ((LOC_SESS_SUCCESS == rpMsg->status && (
+#ifdef FEATURE_ULP
+                               ((LOCATION_HAS_SOURCE_INFO & rpMsg->location.flags) &&
                                 ULP_LOCATION_IS_FROM_HYBRID == rpMsg->location.position_source) ||
+#endif
                                ((LOC_POS_TECH_MASK_SATELLITE & rpMsg->technology_mask) ||
                                 (LOC_POS_TECH_MASK_SENSORS & rpMsg->technology_mask)))) ||
                              (LOC_SESS_INTERMEDIATE == loc_eng_data_p->intermediateFix &&
@@ -1551,11 +1614,19 @@ static void loc_eng_deferred_action_thread(void* arg)
                     loc_eng_data_p->client_handle->setInSession(false);
                 }
 
+#ifdef FEATURE_ULP
                 if (loc_eng_data_p->generateNmea && rpMsg->location.position_source == ULP_LOCATION_IS_FROM_GNSS)
                 {
                     loc_eng_nmea_generate_pos(loc_eng_data_p, rpMsg->location, rpMsg->locationExtended);
                 }
+#else
+                if (loc_eng_data_p->generateNmea && (LOC_POS_TECH_MASK_SATELLITE & rpMsg->technology_mask))
+                {
+                    loc_eng_nmea_generate_pos(loc_eng_data_p, rpMsg->location, rpMsg->locationExtended);
+                }
+#endif
 
+#ifdef FEATURE_ULP
                 // Free the allocated memory for rawData
                 GpsLocation* gp = (GpsLocation*)&(rpMsg->location);
                 if (gp != NULL && gp->rawData != NULL)
@@ -1564,6 +1635,7 @@ static void loc_eng_deferred_action_thread(void* arg)
                     gp->rawData = NULL;
                     gp->rawDataSize = 0;
                 }
+#endif
             }
 
             break;
@@ -1606,8 +1678,10 @@ static void loc_eng_deferred_action_thread(void* arg)
             loc_eng_msg_request_bit* brqMsg = (loc_eng_msg_request_bit*)msg;
             if (brqMsg->ifType == LOC_ENG_IF_REQUEST_TYPE_SUPL) {
                 stateMachine = loc_eng_data_p->agnss_nif;
+#ifdef FEATURE_IPV6
             } else if (brqMsg->ifType == LOC_ENG_IF_REQUEST_TYPE_ANY) {
                 stateMachine = loc_eng_data_p->internet_nif;
+#endif
             } else {
                 LOC_LOGD("%s]%d: unknown I/F request type = 0x%x\n", __func__, __LINE__, brqMsg->ifType);
                 break;
@@ -1624,8 +1698,10 @@ static void loc_eng_deferred_action_thread(void* arg)
             loc_eng_msg_release_bit* brlMsg = (loc_eng_msg_release_bit*)msg;
             if (brlMsg->ifType == LOC_ENG_IF_REQUEST_TYPE_SUPL) {
                 stateMachine = loc_eng_data_p->agnss_nif;
+#ifdef FEATURE_IPV6
             } else if (brlMsg->ifType == LOC_ENG_IF_REQUEST_TYPE_ANY) {
                 stateMachine = loc_eng_data_p->internet_nif;
+#endif
             } else {
                 LOC_LOGD("%s]%d: unknown I/F request type = 0x%x\n", __func__, __LINE__, brlMsg->ifType);
                 break;
@@ -1639,11 +1715,16 @@ static void loc_eng_deferred_action_thread(void* arg)
         case LOC_ENG_MSG_REQUEST_ATL:
         {
             loc_eng_msg_request_atl* arqMsg = (loc_eng_msg_request_atl*)msg;
+#ifdef FEATURE_IPV6
             boolean backwardCompatibleMode = AGPS_TYPE_INVALID == arqMsg->type;
             AgpsStateMachine* stateMachine = (AGPS_TYPE_SUPL == arqMsg->type ||
                                               backwardCompatibleMode) ?
                                              loc_eng_data_p->agnss_nif :
                                              loc_eng_data_p->internet_nif;
+#else
+            boolean backwardCompatibleMode = false;
+            AgpsStateMachine* stateMachine = loc_eng_data_p->agnss_nif;
+#endif
             ATLSubscriber subscriber(arqMsg->handle,
                                      stateMachine,
                                      loc_eng_data_p->client_handle,
@@ -1662,16 +1743,19 @@ static void loc_eng_deferred_action_thread(void* arg)
                              false);
             // attempt to unsubscribe from agnss_nif first
             if (! loc_eng_data_p->agnss_nif->unsubscribeRsrc((Subscriber*)&s1)) {
+#ifdef FEATURE_IPV6
                 ATLSubscriber s2(arlMsg->handle,
                                  loc_eng_data_p->internet_nif,
                                  loc_eng_data_p->client_handle,
                                  false);
                 // if unsuccessful, try internet_nif
                 loc_eng_data_p->internet_nif->unsubscribeRsrc((Subscriber*)&s2);
+#endif
             }
         }
         break;
 
+#ifdef FEATURE_IPV6
         case LOC_ENG_MSG_REQUEST_WIFI:
         {
             loc_eng_msg_request_wifi *wrqMsg = (loc_eng_msg_request_wifi *)msg;
@@ -1696,6 +1780,7 @@ static void loc_eng_deferred_action_thread(void* arg)
             stateMachine->unsubscribeRsrc((Subscriber*)&subscriber);
         }
         break;
+#endif
 
         case LOC_ENG_MSG_REQUEST_XTRA_DATA:
             if (loc_eng_data_p->xtra_module_data.download_request_cb != NULL)
@@ -1741,6 +1826,7 @@ static void loc_eng_deferred_action_thread(void* arg)
         {
             loc_eng_msg_atl_open_success *aosMsg = (loc_eng_msg_atl_open_success*)msg;
             AgpsStateMachine* stateMachine;
+#ifdef FEATURE_IPV6
             switch (aosMsg->agpsType) {
               case AGPS_TYPE_WIFI: {
                 stateMachine = loc_eng_data_p->wifi_nif;
@@ -1756,6 +1842,9 @@ static void loc_eng_deferred_action_thread(void* arg)
             }
 
             stateMachine->setBearer(aosMsg->bearerType);
+#else
+            stateMachine = loc_eng_data_p->agnss_nif;
+#endif
             stateMachine->setAPN(aosMsg->apn, aosMsg->length);
             stateMachine->onRsrcEvent(RSRC_GRANTED);
         }
@@ -1765,6 +1854,7 @@ static void loc_eng_deferred_action_thread(void* arg)
         {
             loc_eng_msg_atl_closed *acsMsg = (loc_eng_msg_atl_closed*)msg;
             AgpsStateMachine* stateMachine;
+#ifdef FEATURE_IPV6
             switch (acsMsg->agpsType) {
               case AGPS_TYPE_WIFI: {
                 stateMachine = loc_eng_data_p->wifi_nif;
@@ -1778,7 +1868,9 @@ static void loc_eng_deferred_action_thread(void* arg)
                 stateMachine  = loc_eng_data_p->internet_nif;
               }
             }
-
+#else
+            stateMachine = loc_eng_data_p->agnss_nif;
+#endif
             stateMachine->onRsrcEvent(RSRC_RELEASED);
         }
         break;
@@ -1787,6 +1879,7 @@ static void loc_eng_deferred_action_thread(void* arg)
         {
             loc_eng_msg_atl_open_failed *aofMsg = (loc_eng_msg_atl_open_failed*)msg;
             AgpsStateMachine* stateMachine;
+#ifdef FEATURE_IPV6
             switch (aofMsg->agpsType) {
               case AGPS_TYPE_WIFI: {
                 stateMachine = loc_eng_data_p->wifi_nif;
@@ -1800,7 +1893,9 @@ static void loc_eng_deferred_action_thread(void* arg)
                 stateMachine  = loc_eng_data_p->internet_nif;
               }
             }
-
+#else
+            stateMachine = loc_eng_data_p->agnss_nif;
+#endif
             stateMachine->onRsrcEvent(RSRC_DENIED);
         }
         break;
@@ -1813,6 +1908,7 @@ static void loc_eng_deferred_action_thread(void* arg)
             loc_eng_handle_engine_up(*loc_eng_data_p);
             break;
 
+#ifdef FEATURE_ULP
         case LOC_ENG_MSG_REQUEST_NETWORK_POSIITON:
         {
             loc_eng_msg_request_network_position *nlprequestmsg = (loc_eng_msg_request_network_position*)msg;
@@ -1842,14 +1938,7 @@ static void loc_eng_deferred_action_thread(void* arg)
                 LOC_LOGE("Ulp Phone context request call back not initialized");
             }
         break;
-
-        case LOC_ENG_MSG_PRIVACY:
-        {
-            loc_eng_msg_privacy *privacyMsg = (loc_eng_msg_privacy*)msg;
-            loc_eng_data_p->client_handle->setPrivacy(privacyMsg->privacy_setting);
-        }
-        break;
-
+#endif
         default:
             LOC_LOGE("unsupported msgid = %d\n", msg->msgid);
             break;
@@ -1879,7 +1968,7 @@ static void loc_eng_deferred_action_thread(void* arg)
 
     EXIT_LOG(%s, VOID_RET);
 }
-
+#ifdef FEATURE_ULP
 /*===========================================================================
 FUNCTION loc_eng_ulp_init
 
@@ -2143,6 +2232,7 @@ int loc_eng_ulp_send_network_position(loc_eng_data_s_type &loc_eng_data,
     EXIT_LOG(%d, ret_val);
     return ret_val;
 }
+#endif
 /*===========================================================================
 FUNCTION    loc_eng_read_config
 
@@ -2178,32 +2268,3 @@ int loc_eng_read_config(void)
     return 0;
 }
 
-/*===========================================================================
-FUNCTION    loc_eng_set_privacy
-
-DESCRIPTION
-   Sets the privacy lock setting (1. GPS on, 0. GPS off).
-
-DEPENDENCIES
-   None
-
-RETURN VALUE
-   0: success
-
-SIDE EFFECTS
-   N/A
-
-===========================================================================*/
-static int loc_eng_set_privacy(loc_eng_data_s_type &loc_eng_data,
-                               int8_t privacy_setting)
-{
-    ENTRY_LOG();
-    INIT_CHECK(loc_eng_data.context, return -1);
-    loc_eng_msg_privacy *msg(
-        new loc_eng_msg_privacy(&loc_eng_data, privacy_setting));
-    msg_q_snd((void*)((LocEngContext*)(loc_eng_data.context))->deferred_q,
-              msg, loc_eng_free_msg);
-
-    EXIT_LOG(%d, 0);
-    return 0;
-}
