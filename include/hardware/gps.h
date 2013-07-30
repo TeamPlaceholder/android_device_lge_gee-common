@@ -127,9 +127,6 @@ typedef uint16_t GpsLocationFlags;
 #define GPS_CAPABILITY_ON_DEMAND_TIME   0x0000010
 /* Hybrid support, the Android Framework will query to see if this capability is set before using the ulp functionalities in HAL */
 #define ULP_CAPABILITY                  0x0000020
-/** GPS supports Geofencing  */
-#define GPS_CAPABILITY_GEOFENCING       0x0000020
-
 /** Flags used to specify which aiding data to delete
     when calling delete_aiding_data(). */
 typedef uint32_t GpsAidingData;
