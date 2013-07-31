@@ -344,21 +344,6 @@ case "$target" in
         ;;
 esac
 
-# Post-setup services
-case "$target" in
-    "msm8660" | "msm8960" | "msm8974")
-        start mpdecision
-    ;;
-    "msm7627a")
-        soc_id=`cat /sys/devices/system/soc/soc0/id`
-        case "$soc_id" in
-            "127" | "128" | "129")
-                start mpdecision
-        ;;
-        esac
-    ;;
-esac
-
 # Enable Power modes and set the CPU Freq Sampling rates
 case "$target" in
      "msm7627a")

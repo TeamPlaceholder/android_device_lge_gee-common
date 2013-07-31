@@ -47,22 +47,9 @@ PRODUCT_PACKAGES += \
 # Enable Torch
 PRODUCT_PACKAGES += Torch
 
-# Thermal profiles
-PRODUCT_PACKAGES += \
-    thermald-8064ab.conf \
-    thermald-8064.conf \
-    thermald-8930.conf \
-    thermald-8960.conf \
-    thermal-engine-8064ab.conf \
-    thermal-engine-8064.conf \
-    thermal-engine-8930.conf \
-    thermal-engine-8960.conf
-
-
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.qcom \
-    initlogo.rle \
     init.bt.rc \
     init.qcom.rc \
     init.qcom.usb.rc \
@@ -78,7 +65,6 @@ PRODUCT_PACKAGES += \
     init.qcom.mdm_links.sh \
     init.qcom.modem_links.sh \
     init.qcom.ril.sh \
-    init.qcom.thermal_conf.sh \
     init.qcom.usb.sh \
     init.qcom.wifi.sh \
     init.recovery.qcom.rc \

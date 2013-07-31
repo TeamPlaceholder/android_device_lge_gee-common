@@ -501,29 +501,11 @@ service dhcpcd_bnep0 /system/bin/dhcpcd -BKLG
     disabled
     oneshot
 
-
-#service wiperiface /system/bin/wiperiface
-#    user location
-#    group qcom_oncrpc
-#    oneshot
-
 service gpsone_daemon /system/bin/gpsone_daemon
     class late_start
     user system
     group system qcom_oncrpc inet
     disabled
-
-#service quipc_igsn /system/bin/quipc_igsn
-#    class late_start
-#    user gps
-#    group inet gps
-#    disabled
-
-#service quipc_main /system/bin/quipc_main
-#    class late_start
-#    user gps
-#    group net_admin wifi inet gps
-#    disabled
 
 service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
     class late_start
@@ -572,12 +554,6 @@ service wifisdio-on /system/bin/sh /system/etc/init.qcom.sdio.sh
 on property:sys.boot_completed=1
     start qcom-post-boot
 
-#service atfwd /system/bin/ATFWD-daemon
-#    class late_start
-#    user system
-#    group system radio
-#    onrestart /system/bin/log -t RIL-ATFWD -p w "ATFWD daemon restarted"
-
 service ppd /system/bin/mm-pp-daemon
     class late_start
     user system
@@ -613,16 +589,6 @@ on property:persist.ims.regmanager.mode=1
 on property:ro.data.large_tcp_window_size=true
     # Adjust socket buffer to enlarge TCP receive window for high bandwidth (e.g. DO-RevB)
     write /proc/sys/net/ipv4/tcp_adv_win_scale  1
-
-#service time_daemon /system/bin/time_daemon
-#    class late_start
-#    user root
-#    group root
-#    oneshot
-#    disabled
-
-#on property:persist.timed.enable=true
-#    start time_daemon
 
 service ril-daemon /system/bin/rild
     class main
@@ -661,4 +627,3 @@ service macloader /system/bin/macloader
 service fetch-swv /system/bin/fetch-swv
     class late_start
     oneshot
-
