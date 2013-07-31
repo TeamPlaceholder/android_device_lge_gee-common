@@ -410,6 +410,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 #Formats: AVI AC3 ASF AAC QCP DTS 3G2
 mm.enable.qcom_parser=33395
 
+# QCOM enhanced A/V
+TARGET_ENABLE_QC_AV_ENHANCEMENTS := true 
+
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.prerotation.disable=1
 
