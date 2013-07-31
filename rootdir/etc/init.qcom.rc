@@ -211,10 +211,6 @@ on post-fs-data
     rm /data/misc/wifi/WCNSS_qcom_cfg.ini
     rm /data/misc/wifi/WCNSS_qcom_wlan_nv.bin
 
-    # prepare kernel for wifi module
-    setprop ro.product.wireless WCN3660
-    write /dev/wcnss_wlan 1
-
     # Mounting of persist is moved to 'on emmc-fs' and 'on fs' sections
     # We chown/chmod /persist again so because mount is run as root + defaults
     chown system system /persist
@@ -298,7 +294,6 @@ on post-fs-data
    chmod 644 /sys/class/leds/button-backlight/brightness
    chmod 646 /sys/class/leds/red/brightness
    chmod 646 /sys/class/leds/green/brightness
-   chmod 646 /sys/class/leds/blue/brightness
 
    # Enable vibrate
    chown system system /sys/class/timed_output/vibrator/enable
@@ -312,22 +307,15 @@ on post-fs-data
    chown system system /sys/class/leds/led:green/max_brightness
    chown system system /sys/class/leds/led:green/trigger
 
-   chown system system /sys/class/leds/led:blue/brightness
-   chown system system /sys/class/leds/led:blue/max_brightness
-   chown system system /sys/class/leds/led:blue/trigger
-
    chown system system /sys/class/leds/button-backlight/brightness
    chown system system /sys/class/leds/button-backlight/max_brightness
 
    chmod 644 /sys/class/leds/led:red/brightness
    chmod 644 /sys/class/leds/led:green/brightness
-   chmod 644 /sys/class/leds/led:blue/brightness
    chmod 644 /sys/class/leds/led:red/trigger
    chmod 644 /sys/class/leds/led:green/trigger
-   chmod 644 /sys/class/leds/led:blue/trigger
    chmod 644 /sys/class/leds/led:red/max_brightness
    chmod 644 /sys/class/leds/led:green/max_brightness
-   chmod 644 /sys/class/leds/led:blue/max_brightness
    chmod 644 /sys/class/leds/button-backlight/brightness
    chmod 644 /sys/class/leds/button-backlight/max_brightness
 
