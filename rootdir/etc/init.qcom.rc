@@ -94,8 +94,6 @@ on boot
    # Allow QMUX daemon to assign port open wait time
     chown radio radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
 
-    setprop wifi.interface wlan0
-
     #Set SUID bit for usbhub
     chmod 4755 /system/bin/usbhub
     chmod 755 /system/bin/usbhub_init
@@ -203,12 +201,7 @@ on post-fs-data
     # to observe dnsmasq.leases file for dhcp information of soft ap.
     chown dhcp system /data/misc/dhcp
 
-    # Update WIFI MAC address
-    mkdir /data/misc/wifi/prima 0775 wifi wifi
-    exec /system/bin/mac-update
-
     write /sys/module/wcnss_ssr_8960/parameters/enable_riva_ssr 1
-    write /sys/devices/platform/wcnss_wlan.0/serial_number ${ro.serialno}
     write /dev/wcnss_wlan 1
 
     # Create directory used by audio subsystem
@@ -618,10 +611,6 @@ service conn_init /system/bin/logwrapper /system/bin/conn_init
     class late_start
     user system
     group system wifi
-    oneshot
-
-service macloader /system/bin/macloader
-    class main
     oneshot
     
 service fetch-swv /system/bin/fetch-swv
