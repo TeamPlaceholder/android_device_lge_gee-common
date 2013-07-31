@@ -55,26 +55,6 @@ on early-boot
 on boot-pause
     exec system/bin/battery_charging
 
-on boot
-    mount debugfs /sys/kernel/debug /sys/kernel/debug
-    exec system/bin/btnvtool -O
-    setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
-    chown bluetooth bluetooth ro.bt.bdaddr_path
-    chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
-    chown bluetooth bluetooth /proc/bluetooth/sleep/proto
-    chown system system /sys/module/sco/parameters/disable_esco
-    chown bluetooth bluetooth /sys/module/hci_smd/parameters/hcismd_set
-    chmod 0660 /sys/module/bluetooth_power/parameters/power
-    chmod 0660 /sys/module/hci_smd/parameters/hcismd_set
-    chmod 0660 /sys/class/rfkill/rfkill0/state
-    chmod 0660 /proc/bluetooth/sleep/proto
-    chown bluetooth bluetooth /dev/ttyHS0
-    chmod 0660 /dev/ttyHS0
-    chown bluetooth bluetooth /sys/devices/platform/msm_serial_hs.0/clock
-    chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
-
     # bluetooth LPM
     chmod 0220 /proc/bluetooth/sleep/lpm
     chmod 0220 /proc/bluetooth/sleep/btwrite
@@ -86,8 +66,8 @@ on boot
     chmod 2770 /dev/socket/qmux_radio
     mkdir /dev/socket/qmux_audio 0770 media audio
     chmod 2770 /dev/socket/qmux_audio
-#    mkdir /dev/socket/qmux_bluetooth 0770 bluetooth bluetooth
-#    chmod 2770 /dev/socket/qmux_bluetooth
+    mkdir /dev/socket/qmux_bluetooth 0770 bluetooth bluetooth
+    chmod 2770 /dev/socket/qmux_bluetooth
     mkdir /dev/socket/qmux_gps 0770 gps gps
     chmod 2770 /dev/socket/qmux_gps
 
@@ -542,6 +522,24 @@ service ppd /system/bin/mm-pp-daemon
     group system graphics
     disabled
 
+service config_bluetooth /system/bin/sh /system/etc/init.gee.bt.sh "onboot"
+    class core
+    user root
+    oneshot
+
+service hciattach /system/bin/sh /system/etc/init.gee.bt.sh
+    class late_start
+    user bluetooth
+    group qcom_oncrpc bluetooth net_bt_admin system
+    disabled
+    oneshot
+
+on property:bluetooth.hciattach=true
+    start hciattach
+
+on property:bluetooth.hciattach=false
+    setprop bluetooth.status off
+
 service hostapd /system/bin/hostapd -dddd /data/hostapd/hostapd.conf
     class late_start
     user root
@@ -601,6 +599,12 @@ service conn_init /system/bin/logwrapper /system/bin/conn_init
     group system wifi
     oneshot
     
+service bdAddrLoader /system/bin/bdAddrLoader -f /persist/bluetooth/.bdaddr -h -x
+    class main
+    user bluetooth
+    group system bluetooth
+    oneshot
+
 service fetch-swv /system/bin/fetch-swv
     class late_start
     oneshot
