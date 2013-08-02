@@ -337,7 +337,7 @@ PRODUCT_PACKAGES += \
     hci_qcomm_init
 
 PRODUCT_PACKAGES += \
-    power.msm8960
+    power.qcom
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.qualcomm.bt.hci_transport=smd
