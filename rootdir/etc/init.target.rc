@@ -176,12 +176,6 @@ on charger
     setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
     setprop net.tcp.buffersize.evdo_b  4094,87380,262144,4096,16384,262144
 
-# start camera server as daemon
-service qcamerasvr /system/bin/mm-qcamera-daemon
-    class late_start
-    user camera
-    group camera system inet input
-
 service ks_checker /system/bin/sh /system/etc/kickstart_checker.sh
     class core
     oneshot
