@@ -143,3 +143,6 @@ TARGET_PROVIDES_LIBLIGHT := true
 
 # Have Camera HAL in the device source 
 USE_DEVICE_SPECIFIC_CAMERA := true
+
+# Mako GPS HAL is now proprietary
+TARGET_PROVIDES_GPS_LOC_API := true
