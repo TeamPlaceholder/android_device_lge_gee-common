@@ -147,3 +147,6 @@ USE_DEVICE_SPECIFIC_CAMERA := true
 
 # Mako GPS HAL is now proprietary
 TARGET_PROVIDES_GPS_LOC_API := true
+
+#Disable Initlogo
+TARGET_NO_INITLOGO := true
