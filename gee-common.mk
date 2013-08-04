@@ -47,8 +47,9 @@ PRODUCT_PACKAGES += \
 # Enable Torch
 PRODUCT_PACKAGES += Torch
 
-# Ramdisk
+# Ramdisk and Startup scripts
 PRODUCT_PACKAGES += \
+    efsbackup.sh \
     fstab.qcom \
     init.bt.rc \
     init.qcom.rc \
@@ -69,6 +70,7 @@ PRODUCT_PACKAGES += \
     init.qcom.wifi.sh \
     init.recovery.qcom.rc \
     initlogo.rle \
+    kickstart_checker.sh \
     ueventd.qcom.rc
 
 # WiFi
@@ -109,23 +111,16 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml \
     $(LOCAL_PATH)/media/media_codecs.xml:system/etc/media_codecs.xml
 
-# Non-Ramdisk Init Scripts
+# Input
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/scripts/kickstart_checker.sh:system/etc/kickstart_checker.sh \
-    $(LOCAL_PATH)/scripts/efsbackup.sh:system/bin/efsbackup.sh
-
-# Keylayouts
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/keylayouts/Button_Jack.kl:system/usr/keylayout/Button_Jack.kl \
-    $(LOCAL_PATH)/keylayouts/external_kbd.kl:system/usr/keylayout/external_kbd.kl \
-    $(LOCAL_PATH)/keylayouts/keypad_8064.kl:system/usr/keylayout/keypad_8064.kl \
-    $(LOCAL_PATH)/keylayouts/MHLRCP.kl:system/usr/keylayout/MHLRCP.kl \
-    $(LOCAL_PATH)/keylayouts/osp3-input.kl:system/usr/keylayout/osp3-input.kl
-
-# Input calibration
-PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/input/Button_Jack.kl:system/usr/keylayout/Button_Jack.kl \
+    $(LOCAL_PATH)/input/external_kbd.kl:system/usr/keylayout/external_kbd.kl \
+    $(LOCAL_PATH)/input/keypad_8064.kl:system/usr/keylayout/keypad_8064.kl \
+    $(LOCAL_PATH)/input/MHLRCP.kl:system/usr/keylayout/MHLRCP.kl \
+    $(LOCAL_PATH)/input/osp3-input.kl:system/usr/keylayout/osp3-input.kl \
     $(LOCAL_PATH)/input/touch_dev.idc:system/usr/idc/touch_dev.idc \
     $(LOCAL_PATH)/input/osp3-input.idc:system/usr/idc/osp3-input.idc
+
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
