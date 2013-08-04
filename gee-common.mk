@@ -68,6 +68,7 @@ PRODUCT_PACKAGES += \
     init.qcom.usb.sh \
     init.qcom.wifi.sh \
     init.recovery.qcom.rc \
+    initlogo.rle \
     ueventd.qcom.rc
 
 # WiFi
