@@ -16,6 +16,8 @@
 
 ifneq ($(filter geeb gee_intl geespr,$(TARGET_DEVICE)),)
 
+LOCAL_PATH:= $(call my-dir)
+
 include $(CLEAR_VARS)
 LOCAL_MODULE := libwfcu
 LOCAL_SRC_FILES := wfc_util_fctrl.c \
