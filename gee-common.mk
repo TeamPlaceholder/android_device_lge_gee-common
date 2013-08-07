@@ -322,12 +322,13 @@ PRODUCT_PACKAGES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-    audio_policy.msm8064 \
+    audio_policy.msm8960 \
     audio.primary.msm8960 \
     audio.a2dp.default \
     audio.usb.default \
     audio.r_submix.default \
-    libaudio-resampler
+    libaudio-resampler \
+    tinymix
 
 PRODUCT_PACKAGES += \
     hci_qcomm_init
