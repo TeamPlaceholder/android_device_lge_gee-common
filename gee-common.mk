@@ -235,10 +235,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Other build properties
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hdmi.enable=true \
-    lpa.decode=false \
+    lpa.decode=true \
     tunnel.decode=true \
     tunnel.audiovideo.decode=true \
-    lpa.use-stagefright=true
 
 # System Props for the MM modules
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -321,6 +320,7 @@ PRODUCT_PACKAGES += \
     gralloc.msm8960 \
     copybit.msm8960
 
+# Audio
 PRODUCT_PACKAGES += \
     audio_policy.msm8064 \
     audio.primary.msm8960 \
