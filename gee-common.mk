@@ -287,10 +287,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.fuse_sdcard=true
 
-# Use a higher text cache width due to our 2GBs of RAM
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.hwui.text_cache_width=2048
-
 # Supports warmboot capabilities
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.warmboot.capability=1
