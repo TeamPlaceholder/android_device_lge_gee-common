@@ -394,6 +394,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     media.aac_51_output_enabled=true
 
+# Enable HW AAC encoder
+PRODUCT_PROPERTY_OVERRIDES += \
+    qcom.hw.aac.encoder=true 
+
 #Add QCOM parsers    
 #33395 is sum of supported format flags in AAL
 #Formats: AVI AC3 ASF AAC QCP DTS 3G2
