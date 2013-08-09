@@ -50,7 +50,7 @@ BOARD_KERNEL_BASE := 0x80200000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 TARGET_KERNEL_SOURCE := kernel/lge/gee
-BOARD_KERNEL_CMDLINE := console=ttySHL0,115200,n8 androidboot.hardware=qcom lpj=67677
+BOARD_KERNEL_CMDLINE := console=ttySHL0,115200,n8 androidboot.hardware=qcom lpj=67677 user_debug=31
 
 #Audio
 BOARD_USES_ALSA_AUDIO:= true
@@ -177,4 +177,10 @@ BOARD_SEPOLICY_UNION += \
     ueventd.te \
     wpa_supplicant.te
 
-BOARD_HARDWARE_CLASS := device/lge/gee-common/cmhw/
+#BOARD_HARDWARE_CLASS := device/lge/gee-common/cmhw/
+
+OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
+
+HAVE_ADRENO_SOURCE:= false
+
+USE_DEVICE_SPECIFIC_QCOM_PROPRIETARY:= true

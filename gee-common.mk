@@ -102,10 +102,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/egl.cfg:system/lib/egl/egl.cfg
 
-# GPS configuration
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/gps.conf:system/etc/gps.conf
-
 # Media
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml \
@@ -320,7 +316,8 @@ PRODUCT_PACKAGES += \
     libtilerenderer \
     hwcomposer.msm8960 \
     gralloc.msm8960 \
-    copybit.msm8960
+    copybit.msm8960 \
+    memtrack.msm8960 \
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -361,13 +358,22 @@ PRODUCT_PACKAGES += \
     libdashplayer \
     libc2dcolorconvert
 
+# GPS configuration
+PRODUCT_COPY_FILES += \
+        device/lge/gee-common/configs/gps.conf:system/etc/gps.conf
+
 #GPS
 PRODUCT_PACKAGES += \
     libloc_adapter \
     libloc_eng \
     libloc_api_v02 \
+    libloc_ds_api \
+    libloc_core \
+    libizat_core \
+    libgeofence \
     libgps.utils \
-    gps.msm8960
+    gps.msm8960 \
+    flp.msm8960
 
 # QC Perf
 PRODUCT_PROPERTY_OVERRIDES += \
