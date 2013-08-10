@@ -368,9 +368,6 @@ PRODUCT_PACKAGES += \
     libgps.utils \
     gps.msm8960
 
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf
-
 # QC Perf
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.extension_library=/system/lib/libqc-opt.so
