@@ -599,12 +599,6 @@ service conn_init /system/bin/logwrapper /system/bin/conn_init
     group system wifi
     oneshot
     
-service bdAddrLoader /system/bin/bdAddrLoader -f /persist/bluetooth/.bdaddr -h -x
-    class main
-    user bluetooth
-    group system bluetooth
-    oneshot
-
 service fetch-swv /system/bin/fetch-swv
     class late_start
     oneshot

@@ -372,7 +372,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.extension_library=/system/lib/libqc-opt.so
 
 PRODUCT_PACKAGES += \
-    bdAddrLoader \
     libwfcu \
     conn_init
 
