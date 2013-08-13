@@ -516,6 +516,11 @@ service ppd /system/bin/mm-pp-daemon
     group system graphics
     disabled
 
+service config_bluetooth /system/bin/sh /system/etc/init.geehrc.bt.sh "onboot"
+    class core
+    user root
+    oneshot
+
 service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
     class late_start
     user bluetooth
