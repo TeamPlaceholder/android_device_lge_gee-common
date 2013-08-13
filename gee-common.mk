@@ -51,7 +51,6 @@ PRODUCT_PACKAGES += Torch
 PRODUCT_PACKAGES += \
     efsbackup.sh \
     fstab.qcom \
-    init.bt.rc \
     init.qcom.rc \
     init.qcom.usb.rc \
     init.target.rc \
