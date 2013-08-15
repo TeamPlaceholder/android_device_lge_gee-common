@@ -64,7 +64,7 @@ $(LOCAL_BUILT_MODULE):
 	$(hide) mkdir -p $(dir $(SYMLINK))
 	$(hide) rm -rf $@
 	$(hide) rm -rf $(SYMLINK)
-	$(hide) ln -sf $(TARGET) $(SYMLINK)
+	$(hide) cp -f $(TARGET) $(SYMLINK)
 	$(hide) touch $@
 
 include $(CLEAR_VARS)
@@ -81,7 +81,7 @@ $(LOCAL_BUILT_MODULE):
 	$(hide) mkdir -p $(dir $(SYMLINK))
 	$(hide) rm -rf $@
 	$(hide) rm -rf $(SYMLINK)
-	$(hide) ln -sf $(TARGET) $(SYMLINK)
+	$(hide) cp -f $(TARGET) $(SYMLINK)
 	$(hide) touch $@
 
 endif
