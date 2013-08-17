@@ -140,5 +140,5 @@ TARGET_PROVIDES_POWERHAL := true
 TARGET_PROVIDES_LIBLIGHT := true
 
 # Geeb/Mako GPS HAL is now proprietary
-TARGET_PROVIDES_GPS_LOC_API := true
+# TARGET_PROVIDES_GPS_LOC_API := true #We don't provide this has we no longer have the HAL in our folder
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
