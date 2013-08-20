@@ -74,7 +74,7 @@ TARGET_HARDWARE_3D := false
 TARGET_BOARD_PLATFORM := msm8960
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno320
 TARGET_BOOTLOADER_BOARD_NAME := GEE
-TARGET_BOOTLOADER_NAME=geehrc
+TARGET_BOOTLOADER_NAME=gee
 TARGET_NO_BOOTLOADER := true
 BOARD_VENDOR := lge
 
@@ -106,7 +106,7 @@ BOARD_EGL_CFG := device/lge/gee-common/configs/egl.cfg
 
 #Recovery
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-TARGET_RECOVERY_UI_LIB := librecovery_ui_geehrc
+TARGET_RECOVERY_UI_LIB := librecovery_ui_gee
 TARGET_RECOVERY_FSTAB = device/lge/gee-common/rootdir/etc/fstab.qcom
 RECOVERY_FSTAB_VERSION := 2
 
