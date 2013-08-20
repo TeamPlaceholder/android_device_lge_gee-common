@@ -514,8 +514,8 @@ service sdcard /system/bin/sdcard /data/media /mnt/shell/emulated 1023 1023
 # Camera server
 service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
-    user system
-    group system camera inet graphics
+    user camera
+    group camera system inet input
 
 service conn_init /system/bin/logwrapper /system/bin/conn_init
     class late_start
