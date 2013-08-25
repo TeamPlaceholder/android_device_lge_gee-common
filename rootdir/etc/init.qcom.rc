@@ -325,10 +325,6 @@ on property:vold.decrypt=trigger_restart_framework
 service rmt_storage /system/bin/rmt_storage
     class core
     user root
-    disabled
-
-on property:ro.boot.emmc=true
-    start rmt_storage
 
 service bridgemgrd /system/bin/bridgemgrd
     class late_start
