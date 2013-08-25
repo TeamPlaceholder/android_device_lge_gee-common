@@ -517,6 +517,11 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     user camera
     group camera system inet input
 
+service qseecomd /system/bin/qseecomd
+    class late_start
+    user system
+    group system
+
 service conn_init /system/bin/logwrapper /system/bin/conn_init
     class late_start
     user system
