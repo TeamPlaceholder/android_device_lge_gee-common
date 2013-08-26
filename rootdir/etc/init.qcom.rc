@@ -55,9 +55,6 @@ on early-boot
     setprop qcom.audio.init complete
     exec /system/bin/sh /init.qcom.early_boot.sh ${ro.board.platform}
     exec /system/bin/sh /init.qcom.syspart_fixup.sh ${ro.board.platform} ${ro.serialno}
-
-on boot-pause
-    exec system/bin/battery_charging
     
 on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
