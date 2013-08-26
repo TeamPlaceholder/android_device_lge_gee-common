@@ -60,7 +60,6 @@ on boot-pause
     exec system/bin/battery_charging
     
 on boot
-    start qcamerasvr
     mount debugfs /sys/kernel/debug /sys/kernel/debug
 
     #Create QMUX deamon socket area
