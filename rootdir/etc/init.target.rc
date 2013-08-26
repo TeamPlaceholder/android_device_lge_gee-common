@@ -41,13 +41,6 @@ on post-fs-data
     mkdir /data/misc/radio 0775 radio radio
     mkdir /data/misc/radio/hatp 0775 radio system
 
-    #HDCP2.X : The directory permission is temporary.
-    mkdir /efs/drm 0775  system system
-    mkdir /efs/drm/dxhdcp2 0774  system system
-
-    # permission for TZIC
-    chown system system /dev/tzic
-
     # sensor
     chown system radio /sys/class/sensors/barometer_sensor/sea_level_pressure
     chown system radio /sys/class/sensors/barometer_sensor/eeprom_check
@@ -79,9 +72,6 @@ on post-fs-data
     #OTG Test
     chown system radio /sys/class/host_notify/usb_otg/booster
     chmod 0660 /sys/class/host_notify/usb_otg/booster
-
-    # h2k permission
-    chmod 0644 /efs/redata.bin
 
     # Permissions for NCM
     chmod 0660 /sys/class/android_usb/android0/terminal_version
