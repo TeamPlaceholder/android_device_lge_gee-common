@@ -80,32 +80,15 @@ on post-fs-data
     chown system radio /sys/class/host_notify/usb_otg/booster
     chmod 0660 /sys/class/host_notify/usb_otg/booster
 
-    #Essential node for usbservice
-    mkdir /dev/bus/ 755 root root
-    mkdir /dev/bus/usb 755 root root
-
     # h2k permission
     chmod 0644 /efs/redata.bin
-
-    # Permissions for Camera
-    chown system radio /sys/class/camera/rear/rear_camfw
-    chown system radio /sys/class/camera/rear/rear_camtype
-    chown system radio /sys/class/camera/rear/rear_flash
-    chown system radio /sys/class/camera/front/front_camfw
-    chown system radio /sys/class/camera/front/front_camtype
-    chown system camera /sys/class/flash/flash/flash_power
-    chmod 660 /sys/class/flash/flash/flash_power
 
     # Permissions for NCM
     chmod 0660 /sys/class/android_usb/android0/terminal_version
     chown system system /sys/class/android_usb/android0/terminal_version
 
     # adjust vibrator amplitude
-    write /sys/class/timed_output/vibrator/amp 70
-
-    # communicate with mpdecision and thermald
-    mkdir /dev/socket/mpdecision 0770 system system
-    chmod 2770 /dev/socket/mpdecision
+    write /sys/class/timed_output/vibrator/amp 90
 
     # Enable Power modes and set the CPU Freq Sampling rates
     write /sys/module/rpm_resources/enable_low_power/L2_cache 1
@@ -195,15 +178,10 @@ service qrngd /system/bin/qrngd -f
     user root
     group root
 
-# Start kickstart if mdm is detected
-on property:ro.baseband=mdm
-    mkdir /data/qcks 0770 system system
-    start kickstart
-
 # 2011-12-08/systemsw/kyo/ bugreport is triggered by holding down volume down, volume up and power
 service bugreport /system/bin/bugmailer.sh -v
-	class main
-	disabled
-	oneshot
-	keycodes 114 115 116
+    class main
+    disabled
+    oneshot
+    keycodes 114 115 116
 
