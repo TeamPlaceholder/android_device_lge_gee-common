@@ -35,6 +35,10 @@ on fs
     setprop ro.crypto.fuse_sdcard true
     write /sys/kernel/boot_adsp/boot 1
 
+on init
+    setprop ro.usb.idproduct.mtp 631C
+    setprop ro.usb.idproduct.mtp_adb 61F9
+
 on post-fs-data
 
     # create directory for ril data
@@ -174,4 +178,3 @@ service bugreport /system/bin/bugmailer.sh -v
     disabled
     oneshot
     keycodes 114 115 116
-
