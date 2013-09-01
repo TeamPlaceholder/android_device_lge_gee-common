@@ -340,9 +340,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.qualcomm.bt.hci_transport=smd
 
- # Camera
- PRODUCT_PACKAGES += \
-   libmmcamera_interface
+# Camera
+PRODUCT_PACKAGES += \
+    libmmcamera_interface
 
 # OMX
 PRODUCT_PACKAGES += \
