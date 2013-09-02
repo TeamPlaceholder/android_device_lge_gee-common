@@ -32,22 +32,6 @@ on early-init
 
 on fs
     mount_all fstab.qcom
-    restorecon /persist
-    restorecon /persist/bluetooth
-    restorecon /persist/bluetooth/.bdaddr
-    restorecon /persist/playready
-    restorecon /persist/playready/dxhdcp2
-    restorecon /persist/playready/dxhdcp2/acGSIRU1TX-2o-nJ69e1aFGgUxE_
-    restorecon /persist/playready/dxhdcp2/acGSIRU1TX-2o-nJ69e1aFGgUxE_/etK7oituoft7bxrO5H7GIVuhEQM_
-    restorecon /persist/playready/dxhdcp2/acGSIRU1TX-2o-nJ69e1aFGgUxE_/zttE+GVYd9YzREzMHiKY-IlERZM_
-    restorecon /persist/sensors
-    restorecon /persist/sensors/sns.reg
-    restorecon /persist/widevine
-    restorecon /persist/widevine/5dsokxEEDXgQhkN50bp-Z2K5InM_
-    restorecon /persist/widevine/5dsokxEEDXgQhkN50bp-Z2K5InM_/RXFABDUxyT6Q+Zwx9ZhPGOq2Bq8_
-    restorecon /persist/widevine/5dsokxEEDXgQhkN50bp-Z2K5InM_/D3qpp0bxmJhbiZwIsCbXJ1434rc_
-    restorecon /persist/wifi
-    restorecon /persist/wifi/.macaddr
     setprop ro.crypto.fuse_sdcard true
     write /sys/kernel/boot_adsp/boot 1
 
@@ -157,7 +141,6 @@ service kickstart /system/bin/qcks -i /firmware/image/ -r /data/tombstones/mdm/
     class core
     user system
     group system
-    seclabel u:r:kickstart:s0
     disabled
     oneshot
 

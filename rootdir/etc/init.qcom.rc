@@ -199,9 +199,7 @@ on post-fs-data
     setprop net.tcp.buffersize.wifi    24288,2097152,4194304,262144,524288,1048576
 
     mkdir /data/misc/playready
-    restorecon /data/misc/playready
     mkdir /data/misc/tzapps
-    restorecon /data/misc/tzapps
 
     write /sys/module/wcnss_ssr_8960/parameters/enable_riva_ssr 1
     write /dev/wcnss_wlan 1
@@ -230,7 +228,6 @@ on post-fs-data
     mkdir /data/system/sensors
     chmod 665 /data/system/sensors
     write /data/system/sensors/settings 1
-    restorecon /data/system/sensors/settings
     chmod 660 /data/system/sensors/settings
 
     # AKM setting data
@@ -406,7 +403,7 @@ service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant \
     #   user wifi
     #   group wifi inet keystore
     class main
-    socket wpa_wlan0 dgram 660 wifi wifi u:object_r:wpa_socket:s0
+    socket wpa_wlan0 dgram 660 wifi wifi
     disabled
     oneshot
 
@@ -421,7 +418,7 @@ service p2p_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant \
 #   user wifi
 #   group wifi inet keystore
     class main
-    socket wpa_wlan0 dgram 660 wifi wifi u:object_r:wpa_socket:s0
+    socket wpa_wlan0 dgram 660 wifi wifi
     disabled
     oneshot
 
@@ -484,7 +481,6 @@ service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
     class late_start
     user bluetooth
     group qcom_oncrpc bluetooth net_bt_admin system net_bt_stack system
-    seclabel u:r:bluetooth_loader:s0
     disabled
     oneshot
 
