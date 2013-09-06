@@ -340,9 +340,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.qualcomm.bt.hci_transport=smd
 
-# Camera
 PRODUCT_PACKAGES += \
-    libmmcamera_interface
+        camera.msm8960 \
+        libmmcamera_interface2 \
+        libmmcamera_interface
 
 # OMX
 PRODUCT_PACKAGES += \
