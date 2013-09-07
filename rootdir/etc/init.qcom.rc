@@ -27,6 +27,10 @@
 
 import init.qcom.usb.rc
 
+on early-init
+    write /sys/class/leds/lcd-backlight/brightness 150
+    mount debugfs /sys/kernel/debug /sys/kernel/debug
+
 on init
     # Set permissions for persist partition
     mkdir /persist 0771 system system
@@ -60,8 +64,6 @@ on early-boot
     exec /system/bin/sh /init.qcom.syspart_fixup.sh ${ro.board.platform} ${ro.serialno}
     
 on boot
-    mount debugfs /sys/kernel/debug /sys/kernel/debug
-
     #Create QMUX deamon socket area
     mkdir /dev/socket/qmux_radio 0770 radio radio
     chmod 2770 /dev/socket/qmux_radio
