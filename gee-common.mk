@@ -44,9 +44,6 @@ PRODUCT_PACKAGES += \
     VisualizationWallpapers \
     librs_jni
 
-# Enable Torch
-PRODUCT_PACKAGES += Torch
-
 # Ramdisk and Startup scripts
 PRODUCT_PACKAGES += \
     efsbackup.sh \
