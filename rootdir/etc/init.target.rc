@@ -68,17 +68,6 @@ on post-fs-data
     chown system radio /sys/class/sensors/proximity_sensor/prox_cal
     chown system radio /sys/class/sensors/light_sensor/enable
 
-    # sensor
-    chown system radio /sys/class/sensors/barometer_sensor/sea_level_pressure
-    chown system radio /sys/class/sensors/barometer_sensor/eeprom_check
-    chown system radio /sys/class/sensors/barometer_sensor/calibration
-    chown system radio /sys/class/sensors/accelerometer_sensor/calibration
-    chown system radio /sys/class/sensors/accelerometer_sensor/reactive_alert
-    chown system radio /sys/class/sensors/proximity_sensor/enable
-    chown system radio /sys/class/sensors/proximity_sensor/prox_avg
-    chown system radio /sys/class/sensors/proximity_sensor/prox_cal
-    chown system radio /sys/class/sensors/light_sensor/enable
-
     #earjack
     chown system radio /sys/class/audio/earjack/select_jack
     chown media system /sys/class/audio/earjack/reselect_jack
