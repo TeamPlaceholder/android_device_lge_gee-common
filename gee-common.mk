@@ -419,7 +419,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
-# This is the geeb/mako-specific audio package
-$(call inherit-product, frameworks/base/data/sounds/AudioPackage10.mk)
+# This is the gee/mako-specific audio package
+$(call inherit-product-if-exists, frameworks/base/data/sounds/AudioPackage10.mk)
 
 $(call inherit-product, hardware/qcom/msm8960/msm8960.mk)
