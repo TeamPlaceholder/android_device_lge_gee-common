@@ -64,10 +64,17 @@ PRODUCT_PACKAGES += \
     init.qcom.ril.sh \
     init.qcom.usb.sh \
     init.qcom.wifi.sh \
+    init.qcom.sensor.sh \
     init.recovery.qcom.rc \
     initlogo.rle \
     kickstart_checker.sh \
-    ueventd.qcom.rc
+    ueventd.qcom.rc \
+    hcidump.sh \
+    hsic.control.bt.sh \
+    init.ath3k.bt.sh \
+    init.qcom.audio.sh \
+    init.qcom.coex.sh \
+    init.qcom.ssr.sh 
 
 # WiFi
 PRODUCT_COPY_FILES += \
@@ -226,10 +233,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.hw=1 \
     debug.egl.hw=1 \
-    debug.composition.type=dyn \
+    debug.composition.type=c2d \
     debug.enable.wl_log=1 \
     persist.hwc.mdpcomp.enable=true \
     debug.mdpcomp.logs=0 \
+    dev.pm.dyn_samplingrate=1 \
     debug.qctwa.statusbar=1 \
     debug.qctwa.preservebuf=1 \
     debug.qc.hardware=true \
@@ -356,6 +364,7 @@ PRODUCT_PACKAGES += \
     libOmxEvrcEnc \
     libOmxQcelp13Enc \
     libdashplayer \
+    qcmediaplayer \
     libc2dcolorconvert
 
 #GPS
@@ -396,10 +405,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     qcom.hw.aac.encoder=true 
 
-#Add QCOM parsers    
-#33395 is sum of supported format flags in AAL
-#Formats: AVI AC3 ASF AAC QCP DTS 3G2
-mm.enable.qcom_parser=33395
+#37491 is decimal sum of supported codecs in AAL
+#codecs: AVI AC3 ASF AAC QCP DTS 3G2 MP2TS
+PRODUCT_PROPERTY_OVERRIDES += \
+    mm.enable.qcom_parser=37491
 
 # QCOM enhanced A/V
 TARGET_ENABLE_QC_AV_ENHANCEMENTS := true 

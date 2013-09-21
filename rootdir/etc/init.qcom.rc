@@ -25,11 +25,12 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+import init.target.rc
 import init.qcom.usb.rc
 
 on early-init
     write /sys/class/leds/lcd-backlight/brightness 150
-    mount debugfs /sys/kernel/debug /sys/kernel/debug
+    mount debugfs debugfs /sys/kernel/debug
 
 on init
     # Set permissions for persist partition
@@ -64,6 +65,7 @@ on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
     setprop qcom.audio.init complete
+    write /sys/module/subsystem_restart/parameters/enable_debug ${persist.sys.ssr.enable_debug}
     exec /system/bin/sh /init.qcom.early_boot.sh ${ro.board.platform}
     exec /system/bin/sh /init.qcom.syspart_fixup.sh ${ro.board.platform} ${ro.serialno}
     
@@ -391,7 +393,14 @@ on property:ro.use_data_netmgrd=false
 # Adjust socket buffer to enlarge TCP receive window for high bandwidth
 # but only if ro.data.large_tcp_window_size property is set.
 on property:ro.data.large_tcp_window_size=true
-    write /proc/sys/net/ipv4/tcp_adv_win_scale  1
+    write /proc/sys/net/ipv4/tcp_adv_win_scale  2
+
+service btwlancoex /system/bin/sh /system/etc/init.qcom.coex.sh
+    class late_start
+    user bluetooth
+    group bluetooth net_bt_admin inet net_admin net_raw
+    disabled
+    oneshot
 
 service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
@@ -471,7 +480,13 @@ service qcom-post-boot /system/bin/sh /system/etc/init.qcom.post_boot.sh
 on property:sys.boot_completed=1
     start qcom-post-boot
 
-service config_bluetooth /system/bin/sh /system/etc/init.geehrc.bt.sh "onboot"
+service wifi-sdio-on /system/bin/sh /system/etc/init.qcom.sdio.sh
+    class late_start
+    group wifi inet
+    disabled
+    oneshot
+
+service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
     class core
     user root
     oneshot
@@ -490,6 +505,13 @@ on property:bluetooth.hciattach=true
 on property:bluetooth.hciattach=false
     setprop bluetooth.status off
 
+service hciattach_ath3k /system/bin/sh /system/etc/init.ath3k.bt.sh
+     class late_start
+     user bluetooth
+     group system bluetooth net_bt_admin misc
+     disabled
+     oneshot
+
 service hostapd /system/bin/hostapd -dddd /data/hostapd/hostapd.conf
     class late_start
     user root
@@ -506,10 +528,9 @@ service ds_fmc_appd /system/bin/ds_fmc_appd -p "rmnet0" -D
 on property:persist.data.ds_fmc_app.mode=1
     start ds_fmc_appd
 
-
 on property:ro.data.large_tcp_window_size=true
     # Adjust socket buffer to enlarge TCP receive window for high bandwidth (e.g. DO-RevB)
-    write /proc/sys/net/ipv4/tcp_adv_win_scale  1
+    write /proc/sys/net/ipv4/tcp_adv_win_scale  2
 
 service ril-daemon /system/bin/rild
     class main
@@ -528,6 +549,19 @@ service ril-daemon1 /system/bin/rild -c 1
 
 service sdcard /system/bin/sdcard /data/media /mnt/shell/emulated 1023 1023
     class late_start
+
+service charger /charger
+    class charger
+
+service hcidump /system/bin/sh /system/etc/hcidump.sh
+    user bluetooth
+    group bluetooth system net_bt_admin net_admin
+    disabled
+    oneshot
+
+# SSR setting
+on property:persist.sys.ssr=*
+    exec /system/bin/sh /init.qcom.ssr.sh ${persist.sys.ssr}
 
 # Camera server
 service qcamerasvr /system/bin/mm-qcamera-daemon

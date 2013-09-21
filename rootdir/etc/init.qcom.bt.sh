@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Copyright (c) 2009-2012, Code Aurora Forum. All rights reserved.
+# Copyright (c) 2009-2013, Code Aurora Forum. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -64,7 +64,11 @@ config_bt ()
 {
   baseband=`getprop ro.baseband`
   target=`getprop ro.board.platform`
-  soc_hwid=`cat /sys/devices/system/soc/soc0/id`
+  if [ -f /sys/devices/soc0/soc_id ]; then
+    soc_hwid=`cat /sys/devices/soc0/soc_id`
+  else
+    soc_hwid=`cat /sys/devices/system/soc/soc0/id`
+  fi
   btsoc=`getprop qcom.bluetooth.soc`
 
   case $baseband in

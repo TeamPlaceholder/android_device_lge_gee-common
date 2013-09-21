@@ -26,44 +26,63 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-#
-# start ril-daemon only for targets on which radio is present
-#
-baseband=`getprop ro.baseband`
-multirild=`getprop ro.multi.rild`
-dsds=`getprop persist.dsds.enabled`
-netmgr=`getprop ro.use_data_netmgrd`
-sgltecsfb=`getprop persist.radio.sglte_csfb`
+LOG_TAG="qcom-bluetooth"
+LOG_NAME="${0}:"
 
-case "$baseband" in
-    "apq")
-    setprop ro.radio.noril yes
-    stop ril-daemon
-esac
+hciattach_pid=""
 
-case "$baseband" in
-    "msm" | "csfb" | "svlte2a" | "mdm" | "sglte" | "unknown")
-    start qmuxd
-    case "$baseband" in
-        "svlte2a" | "csfb")
-        start qmiproxy
-        ;;
-        "sglte")
-        if [ "x$sgltecsfb" != "xtrue" ]; then
-          start qmiproxy
-        else
-          setprop persist.radio.voice.modem.index 0
-        fi
-    esac
-    case "$multirild" in
-        "true")
-         case "$dsds" in
-             "true")
-             start ril-daemon1
-         esac
-    esac
-    case "$netmgr" in
-        "true")
-        start netmgrd
-    esac
-esac
+loge ()
+{
+  /system/bin/log -t $LOG_TAG -p e "$LOG_NAME $@"
+}
+
+logi ()
+{
+  /system/bin/log -t $LOG_TAG -p i "$LOG_NAME $@"
+}
+
+failed ()
+{
+  loge "$1: exit code $2"
+  exit $2
+}
+
+start_hciattach ()
+{
+  /system/bin/hciattach -n /dev/ttyHS2 ath3k 3000000 &
+  hciattach_pid=$!
+  logi "start_hciattach: pid = $hciattach_pid"
+}
+
+kill_hciattach ()
+{
+  logi "kill_hciattach: pid = $hciattach_pid"
+  ## careful not to kill zero or null!
+  kill -TERM $hciattach_pid
+  # this shell doesn't exit now -- wait returns for normal exit
+}
+
+# mimic hciattach options parsing -- maybe a waste of effort
+USAGE="hciattach [-n] [-p] [-b] [-t timeout] [-s initial_speed] <tty> <type | id> [speed] [flow|noflow] [bdaddr]"
+
+while getopts "blnpt:s:" f
+do
+  case $f in
+  b | l | n | p)  opt_flags="$opt_flags -$f" ;;
+  t)      timeout=$OPTARG;;
+  s)      initial_speed=$OPTARG;;
+  \?)     echo $USAGE; exit 1;;
+  esac
+done
+shift $(($OPTIND-1))
+
+# init does SIGTERM on ctl.stop for service
+trap "kill_hciattach" TERM INT
+
+logi "start hciattach"
+start_hciattach
+
+wait $hciattach_pid
+logi "Bluetooth stopped"
+
+exit 0
