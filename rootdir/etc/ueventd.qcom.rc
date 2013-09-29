@@ -42,6 +42,7 @@
 /dev/ttyUSB0              0660   system     system
 /dev/block/mmcblk0p8      0660   system     system
 /dev/block/mmcblk0p9      0660   system     system
+/dev/block/mmcblk0p18     0660   root     system
 
 # yongmin.jung@lge.com 2012.07.10 change qcks, ks, efsks into system process
 /dev/block/mmcblk0p12     0660   system     system
@@ -52,6 +53,7 @@
 /dev/ks_bridge              0660  system        system
 /dev/efs_bridge           0660    system        system
 
-/dev/pn544		0600	nfc	nfc
+/dev/ks_hsic_bridge       0660   system     system
+/dev/efs_hsic_bridge      0660   system     system
 
-/dev/block/mmcblk0p18     0660   root     system
+/dev/pn544		0600	nfc	nfc
