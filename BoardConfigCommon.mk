@@ -166,7 +166,6 @@ BOARD_SEPOLICY_UNION += \
     kickstart.te \
     init.te \
     mediaserver.te \
-    mpdecision.te \
     netmgrd.te \
     property.te \
     qmux.te \
@@ -176,7 +175,6 @@ BOARD_SEPOLICY_UNION += \
     surfaceflinger.te \
     system.te \
     tee.te \
-    thermald.te \
     ueventd.te \
     wpa_supplicant.te
 
