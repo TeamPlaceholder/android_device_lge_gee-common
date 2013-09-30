@@ -260,6 +260,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     media.stagefright.enable-fma2dp=true \
     media.stagefright.enable-scan=true \
     mmp.enable.3g2=true \
+    mm.enable.smoothstreaming=true \
     media.aac_51_output_enabled=true
 
 # Smoothness Tweaks
