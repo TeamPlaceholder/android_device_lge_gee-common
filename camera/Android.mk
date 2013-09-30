@@ -1,3 +1,4 @@
+ifneq ($(filter geeb gee_intl geespr,$(TARGET_DEVICE)),)
 LOCAL_PATH:= $(call my-dir)
 
 ifeq ($(TARGET_BOARD_PLATFORM),msm8960)
@@ -130,6 +131,7 @@ ifeq ($(V4L2_BASED_LIBCAM),true)
 #include $(LOCAL_PATH1)/QCamera/Android.mk
 endif
 
+endif
 endif # USE_CAMERA_STUB
 endif
 endif

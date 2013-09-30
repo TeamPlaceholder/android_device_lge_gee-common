@@ -108,7 +108,7 @@ BOARD_EGL_CFG := device/lge/gee-common/configs/egl.cfg
 
 #Recovery
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-TARGET_RECOVERY_UI_LIB := librecovery_ui_gee
+TARGET_RECOVERY_UI_LIB := librecovery_ui_qcom
 TARGET_RECOVERY_FSTAB = device/lge/gee-common/rootdir/etc/fstab.qcom
 RECOVERY_FSTAB_VERSION := 2
 
