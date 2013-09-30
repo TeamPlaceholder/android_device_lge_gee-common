@@ -217,6 +217,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     rild.libpath=/system/lib/libril-qc-qmi-1.so \
     rild.libargs=-d/dev/smd0 \
     ro.use_data_netmgrd=true \
+    ro.data.large_tcp_window_size=true \
     persist.rild.nitz_plmn="" \
     persist.rild.nitz_long_ons_0="" \
     persist.rild.nitz_long_ons_1="" \
