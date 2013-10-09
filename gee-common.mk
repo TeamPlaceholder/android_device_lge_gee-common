@@ -69,6 +69,7 @@ PRODUCT_PACKAGES += \
     initlogo.rle \
     kickstart_checker.sh \
     ueventd.qcom.rc \
+    ueventd.target.rc \
     hcidump.sh \
     hsic.control.bt.sh \
     init.ath3k.bt.sh \
