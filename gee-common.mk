@@ -48,34 +48,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     efsbackup.sh \
     fstab.qcom \
-    init.qcom.rc \
-    init.qcom.usb.rc \
     init.target.rc \
     init.qcom.bt.sh \
-    init.qcom.post_boot.sh \
-    init.qcom.efs.sync.sh \
-    init.qcom.sh \
-    init.qcom.class_core.sh \
-    init.qcom.class_main.sh \
-    init.qcom.syspart_fixup.sh \
-    init.qcom.early_boot.sh \
-    init.qcom.mdm_links.sh \
-    init.qcom.modem_links.sh \
-    init.qcom.ril.sh \
     init.qcom.usb.sh \
-    init.qcom.wifi.sh \
-    init.qcom.sensor.sh \
-    init.recovery.qcom.rc \
     initlogo.rle \
     kickstart_checker.sh \
-    ueventd.qcom.rc \
-    ueventd.target.rc \
-    hcidump.sh \
-    hsic.control.bt.sh \
-    init.ath3k.bt.sh \
-    init.qcom.audio.sh \
-    init.qcom.coex.sh \
-    init.qcom.ssr.sh 
+    ueventd.target.rc
 
 # WiFi
 PRODUCT_COPY_FILES += \
@@ -435,3 +413,5 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 $(call inherit-product-if-exists, frameworks/base/data/sounds/AudioPackage10.mk)
 
 $(call inherit-product, hardware/qcom/msm8960/msm8960.mk)
+
+$(call inherit-product, device/qcom/common/common.mk)
