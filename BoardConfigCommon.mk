@@ -122,7 +122,7 @@ BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 
 BOARD_USES_SECURE_SERVICES := true
 BOARD_USES_EXTRA_THERMAL_SENSOR := true
-BOARD_USES_CAMERA_FAST_AUTOFOCUS := true
+#BOARD_USES_CAMERA_FAST_AUTOFOCUS := true
 
 # NFC
 BOARD_HAVE_NFC := true
@@ -145,7 +145,7 @@ TARGET_PROVIDES_LIBLIGHT := true
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
 
 # We provide camera HAL.
-USE_DEVICE_SPECIFIC_CAMERA := true
+#USE_DEVICE_SPECIFIC_CAMERA := true
 
 BOARD_SEPOLICY_DIRS += \
     device/lge/gee-common/sepolicy
@@ -156,7 +156,7 @@ BOARD_SEPOLICY_UNION += \
     te_macros \
     bluetooth_loader.te \
     bridge.te \
-    camera.te \
+#    camera.te \
     conn_init.te \
     device.te \
     dhcp.te \
