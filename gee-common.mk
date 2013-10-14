@@ -75,7 +75,11 @@ PRODUCT_PACKAGES += \
     init.ath3k.bt.sh \
     init.qcom.audio.sh \
     init.qcom.coex.sh \
-    init.qcom.ssr.sh 
+    init.qcom.ssr.sh \
+    rootdir/etc/init.mdm.sh \
+    rootdir/etc/init.qcom.factory.sh \
+    rootdir/etc/init.qcom.fm.sh \
+    rootdir/etc/init.qcom.sdio.sh
 
 # WiFi
 PRODUCT_COPY_FILES += \
