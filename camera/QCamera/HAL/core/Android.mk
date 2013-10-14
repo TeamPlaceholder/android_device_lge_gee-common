@@ -65,7 +65,6 @@ LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include/media
 LOCAL_ADDITIONAL_DEPENDENCIES := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
 
 LOCAL_C_INCLUDES += hardware/qcom/display/libgralloc \
-        hardware/qcom/display/libgenlock \
         hardware/qcom/media/libstagefrighthw
 
 # if debug service layer and up , use stub camera!
@@ -78,7 +77,7 @@ LOCAL_SRC_FILES := \
 
 LOCAL_SHARED_LIBRARIES := libutils libui libcamera_client liblog libcutils
 LOCAL_SHARED_LIBRARIES += libmmcamera_interface_badger
-LOCAL_SHARED_LIBRARIES+= libgenlock libbinder
+LOCAL_SHARED_LIBRARIES+= libbinder
 
 LOCAL_CFLAGS += -include bionic/libc/include/sys/socket.h
 
