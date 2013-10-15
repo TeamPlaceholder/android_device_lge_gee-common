@@ -145,6 +145,9 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
 	frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml
 	
+PRODUCT_PACKAGES += \ 
+    hostapd_default.conf
+
 # NFC packages for gee-common
 PRODUCT_PACKAGES += \
     libnfc \
