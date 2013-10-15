@@ -49,8 +49,6 @@ PRODUCT_PACKAGES += \
     efsbackup.sh \
     fstab.qcom \
     init.target.rc \
-    init.qcom.bt.sh \
-    init.qcom.usb.sh \
     initlogo.rle \
     kickstart_checker.sh \
     ueventd.target.rc
@@ -91,11 +89,6 @@ PRODUCT_COPY_FILES += \
 # GPS configuration
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/gps.conf:system/etc/gps.conf
-
-# Media
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml \
-    $(LOCAL_PATH)/media/media_codecs.xml:system/etc/media_codecs.xml
 
 # Input
 PRODUCT_COPY_FILES += \
@@ -328,9 +321,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.qualcomm.bt.hci_transport=smd
 
 PRODUCT_PACKAGES += \
-        camera.msm8960 \
-        libmmcamera_interface2 \
-        libmmcamera_interface
+#        camera.qcom \
+#        libmmcamera_interface2 \
+#        libmmcamera_interface
 
 # OMX
 PRODUCT_PACKAGES += \
@@ -349,12 +342,12 @@ PRODUCT_PACKAGES += \
     libc2dcolorconvert
 
 #GPS
-PRODUCT_PACKAGES += \
-    libloc_adapter \
-    libloc_eng \
-    libloc_api_v02 \
-    libgps.utils \
-    gps.msm8960
+#PRODUCT_PACKAGES += \
+    #libloc_adapter \
+    #libloc_eng \
+    #libloc_api_v02 \
+    #libgps.utils \
+    #gps.msm8960
 
 # QC Perf
 PRODUCT_PROPERTY_OVERRIDES += \

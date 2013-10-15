@@ -1,0 +1,276 @@
+# Copyright (c) 2011, Code Aurora Forum. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are
+# met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above
+#       copyright notice, this list of conditions and the following
+#       disclaimer in the documentation and/or other materials provided
+#       with the distribution.
+#     * Neither the name of Code Aurora Forum, Inc. nor the names of its
+#       contributors may be used to endorse or promote products derived
+#       from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
+# ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+# BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+# BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+# OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+# IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+#
+on early-init
+    mkdir /firmware 0771 system system
+    symlink /data/tombstones /tombstones
+    write /sys/class/leds/lcd-backlight/brightness 150
+    mount debugfs debugfs /sys/kernel/debug
+
+on init
+    mkdir /sns 0775 system system
+    mkdir /sns/cal 0771 system system
+
+    setprop ro.usb.idproduct.mtp 631C
+    setprop ro.usb.idproduct.mtp_adb 61F9
+
+on fs
+    mount_all fstab.qcom
+    restorecon /persist
+    restorecon /persist/bluetooth
+    restorecon /persist/bluetooth/.bdaddr
+    restorecon /persist/playready
+    restorecon /persist/playready/dxhdcp2
+    restorecon /persist/playready/dxhdcp2/acGSIRU1TX-2o-nJ69e1aFGgUxE_
+    restorecon /persist/playready/dxhdcp2/acGSIRU1TX-2o-nJ69e1aFGgUxE_/etK7oituoft7bxrO5H7GIVuhEQM_
+    restorecon /persist/playready/dxhdcp2/acGSIRU1TX-2o-nJ69e1aFGgUxE_/zttE+GVYd9YzREzMHiKY-IlERZM_
+    restorecon /persist/sensors
+    restorecon /persist/sensors/sns.reg
+    restorecon /persist/widevine
+    restorecon /persist/widevine/5dsokxEEDXgQhkN50bp-Z2K5InM_
+    restorecon /persist/widevine/5dsokxEEDXgQhkN50bp-Z2K5InM_/RXFABDUxyT6Q+Zwx9ZhPGOq2Bq8_
+    restorecon /persist/widevine/5dsokxEEDXgQhkN50bp-Z2K5InM_/D3qpp0bxmJhbiZwIsCbXJ1434rc_
+    restorecon /persist/wifi
+    restorecon /persist/wifi/.macaddr
+    setprop ro.crypto.fuse_sdcard true
+    write /sys/kernel/boot_adsp/boot 1
+
+on post-fs-data
+
+    # create directory for ril data
+    mkdir /data/misc/radio 0775 radio radio
+    mkdir /data/misc/radio/hatp 0775 radio system
+
+    # sensor
+    chown system radio /sys/class/sensors/barometer_sensor/sea_level_pressure
+    chown system radio /sys/class/sensors/barometer_sensor/eeprom_check
+    chown system radio /sys/class/sensors/barometer_sensor/calibration
+    chown system radio /sys/class/sensors/accelerometer_sensor/calibration
+    chown system radio /sys/class/sensors/accelerometer_sensor/reactive_alert
+    chown system radio /sys/class/sensors/proximity_sensor/enable
+    chown system radio /sys/class/sensors/proximity_sensor/prox_avg
+    chown system radio /sys/class/sensors/proximity_sensor/prox_cal
+    chown system radio /sys/class/sensors/light_sensor/enable
+
+    #earjack
+    chown system radio /sys/class/audio/earjack/select_jack
+    chown media system /sys/class/audio/earjack/reselect_jack
+    chown system radio /sys/class/audio/earjack/key_state
+    chown system radio /sys/class/audio/earjack/state
+
+    #OTG Test
+    chown system radio /sys/class/host_notify/usb_otg/booster
+    chmod 0660 /sys/class/host_notify/usb_otg/booster
+
+    # Permissions for NCM
+    chmod 0660 /sys/class/android_usb/android0/terminal_version
+    chown system system /sys/class/android_usb/android0/terminal_version
+
+    # adjust vibrator amplitude
+    write /sys/class/timed_output/vibrator/amp 90
+
+    # Enable Power modes and set the CPU Freq Sampling rates
+    write /sys/module/rpm_resources/enable_low_power/L2_cache 1
+    write /sys/module/rpm_resources/enable_low_power/pxo 1
+    write /sys/module/rpm_resources/enable_low_power/vdd_dig 1
+    write /sys/module/rpm_resources/enable_low_power/vdd_mem 1
+    write /sys/module/pm_8x60/modes/cpu0/power_collapse/suspend_enabled 1
+    write /sys/module/pm_8x60/modes/cpu1/power_collapse/suspend_enabled 1
+    write /sys/module/pm_8x60/modes/cpu2/power_collapse/suspend_enabled 1
+    write /sys/module/pm_8x60/modes/cpu3/power_collapse/suspend_enabled 1
+    write /sys/module/pm_8x60/modes/cpu0/power_collapse/idle_enabled 1
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "ondemand"
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "ondemand"
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "ondemand"
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor "ondemand"
+    write /sys/devices/system/cpu/cpufreq/ondemand/up_threshold 90
+    write /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate 50000
+    write /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy 1
+    write /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor 4
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 384000
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 384000
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq 384000
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq 384000
+
+on charger
+    # Enable Power modes and set the CPU Freq Sampling rates
+    write /sys/module/rpm_resources/enable_low_power/L2_cache 1
+    write /sys/module/rpm_resources/enable_low_power/pxo 1
+    write /sys/module/rpm_resources/enable_low_power/vdd_dig 1
+    write /sys/module/rpm_resources/enable_low_power/vdd_mem 1
+    write /sys/module/pm_8x60/modes/cpu0/power_collapse/suspend_enabled 1
+    write /sys/module/pm_8x60/modes/cpu1/power_collapse/suspend_enabled 1
+    write /sys/module/pm_8x60/modes/cpu2/power_collapse/suspend_enabled 1
+    write /sys/module/pm_8x60/modes/cpu3/power_collapse/suspend_enabled 1
+    write /sys/module/pm_8x60/modes/cpu0/power_collapse/idle_enabled 1
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "powersave"
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "powersave"
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "powersave"
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor "powersave"
+    write /sys/devices/system/cpu/cpufreq/ondemand/up_threshold 90
+    write /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate 50000
+    write /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy 1
+    write /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor 4
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 384000
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 384000
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq 384000
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq 384000
+    write /sys/devices/system/cpu/cpu1/online 0
+    write /sys/devices/system/cpu/cpu2/online 0
+    write /sys/devices/system/cpu/cpu3/online 0
+
+on boot
+    #port-bridge
+    chmod 0660 /dev/smd0
+    chown system system /dev/smd0
+
+    # radio
+    mkdir /data/radio 0770 radio radio
+
+    #BT DUN port-bridge
+    chmod 0660 /dev/smd7
+    chown bluetooth bluetooth /dev/smd7
+
+    chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
+
+    # permissions for NFC
+    setprop ro.nfc.port "I2C"
+    chmod 0600 /dev/pn544
+    chown nfc nfc /dev/pn544
+
+   # Allow QMUX daemon to assign port open wait time
+    chown radio radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
+
+    write /sys/module/wcnss_ssr_8960/parameters/enable_riva_ssr 1
+    write /dev/wcnss_wlan 1
+
+    #Create directory used by sensor subsystem(dsps)
+    mkdir /data/system/sensors
+    chmod 665 /data/system/sensors
+    write /data/system/sensors/settings 1
+    restorecon /data/system/sensors/settings
+    chmod 660 /data/system/sensors/settings
+
+    # AKM setting data
+    mkdir /data/misc/sensors
+    chmod 775 /data/misc/sensors
+
+    mkdir /persist/sensors
+    chmod 775 /persist/sensors
+
+    # kickstart
+    mkdir /data/qcks 0770 system system
+    chown system /dev/block/platform/msm_sdcc.1/by-name
+    symlink /dev/efs_bridge /dev/efs_bri
+    chmod 775 /system/etc/init.qcom.modem_links.sh
+    chmod 775 /system/etc/init.qcom.mdm_links.sh
+    exec /system/bin/sh /system/etc/init.qcom.modem_links.sh
+    exec /system/bin/sh /system/etc/init.qcom.mdm_links.sh
+
+ # LED On/Off synchronization
+    chown system system /sys/class/leds/red/device/lock
+
+   chmod 644 /sys/class/leds/button-backlight/brightness
+   chmod 646 /sys/class/leds/red/brightness
+   chmod 646 /sys/class/leds/green/brightness
+
+   # Enable vibrate
+   chown system system /sys/class/timed_output/vibrator/enable
+
+   # LED devices
+   chown system system /sys/class/leds/led:red/brightness
+   chown system system /sys/class/leds/led:red/max_brightness
+   chown system system /sys/class/leds/led:red/trigger
+
+   chown system system /sys/class/leds/led:green/brightness
+   chown system system /sys/class/leds/led:green/max_brightness
+   chown system system /sys/class/leds/led:green/trigger
+
+   chown system system /sys/class/leds/button-backlight/brightness
+   chown system system /sys/class/leds/button-backlight/max_brightness
+
+   chmod 644 /sys/class/leds/led:red/brightness
+   chmod 644 /sys/class/leds/led:green/brightness
+   chmod 644 /sys/class/leds/led:red/trigger
+   chmod 644 /sys/class/leds/led:green/trigger
+   chmod 644 /sys/class/leds/led:red/max_brightness
+   chmod 644 /sys/class/leds/led:green/max_brightness
+   chmod 644 /sys/class/leds/button-backlight/brightness
+   chmod 644 /sys/class/leds/button-backlight/max_brightness
+
+    # Define TCP buffer sizes for various networks
+    #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
+    setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
+    setprop net.tcp.buffersize.wifi    4096,221184,3461120,4096,221184,3461120
+    setprop net.tcp.buffersize.lte     4094,87380,2560000,4096,16384,1220608
+    setprop net.tcp.buffersize.umts    4094,87380,110208,4096,16384,110208
+    setprop net.tcp.buffersize.hspa    4092,87380,704512,4096,16384,262144
+    setprop net.tcp.buffersize.hsupa   4092,87380,704512,4096,16384,262144
+    setprop net.tcp.buffersize.hsdpa   4092,87380,704512,4096,16384,110208
+    setprop net.tcp.buffersize.hspap   4092,87380,704512,4096,16384,262144
+    setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
+    setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
+    setprop net.tcp.buffersize.evdo_b  4094,87380,262144,4096,16384,262144
+
+    chown root radio /proc/cmdline
+    chmod 0644 /proc/cmdline
+
+service ks_checker /system/bin/sh /system/etc/kickstart_checker.sh
+    class core
+    oneshot
+
+service kickstart /system/bin/qcks -i /firmware/image/ -r /data/tombstones/mdm/
+    class core
+    user system
+    group system
+    seclabel u:r:kickstart:s0
+    disabled
+    oneshot
+
+on property:persist.radio.kickstart=on
+    start kickstart
+
+service conn_init /system/bin/logwrapper /system/bin/conn_init
+    class late_start
+    user system
+    group system wifi
+    oneshot
+    
+service fetch-swv /system/bin/fetch-swv
+    class late_start
+    oneshot
+    
+service qseecomd /system/bin/qseecomd
+    class late_start
+    user system
+    group system
+
+service qrngd /system/bin/qrngd -f
+    class main
+    user root
+    group root

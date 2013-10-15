@@ -17,9 +17,9 @@
 # We optimize for cortex-a15 since krait is closer to a15 than a9
 # and slightly benefits in testing done.
 
-TARGET_GLOBAL_CFLAGS += -mfpu=neon-vfpv4 -mtune=cortex-a15 -mfloat-abi=softfp
-TARGET_GLOBAL_CPPFLAGS += -mfpu=neon-vfpv4 -mtune=cortex-a15 -mfloat-abi=softfp
-TARGET_EXTRA_CFLAGS := -mtune=cortex-a15 -mcpu=cortex-a15
+TARGET_GLOBAL_CFLAGS += -mfpu=neon -mtune=cortex-a15 -mfloat-abi=softfp
+TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mtune=cortex-a15 -mfloat-abi=softfp
+TARGET_EXTRA_CFLAGS := -mtune=cortex-a15 -mcpu=cortex-a15 -mfpu=neon
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := true
@@ -34,7 +34,6 @@ TARGET_KRAIT_BIONIC_PLDOFFS := 10
 TARGET_KRAIT_BIONIC_PLDTHRESH := 10
 TARGET_KRAIT_BIONIC_BBTHRESH := 64
 TARGET_KRAIT_BIONIC_PLDSIZE := 64
-DYNAMIC_SHARED_LIBV8SO := true
 BOARD_USE_QCOM_LLVM_CLANG_RS := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
 TARGET_USES_INTERACTION_BOOST := true
@@ -108,7 +107,7 @@ BOARD_EGL_CFG := device/lge/gee-common/configs/egl.cfg
 
 #Recovery
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-TARGET_RECOVERY_UI_LIB := librecovery_ui_qcom
+#TARGET_RECOVERY_UI_LIB := librecovery_ui_qcom
 TARGET_RECOVERY_FSTAB = device/lge/gee-common/rootdir/etc/fstab.qcom
 RECOVERY_FSTAB_VERSION := 2
 
@@ -122,7 +121,7 @@ BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 
 BOARD_USES_SECURE_SERVICES := true
 BOARD_USES_EXTRA_THERMAL_SENSOR := true
-BOARD_USES_CAMERA_FAST_AUTOFOCUS := true
+#BOARD_USES_CAMERA_FAST_AUTOFOCUS := true
 
 # NFC
 BOARD_HAVE_NFC := true
@@ -137,45 +136,41 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 ENABLE_WEBGL := true
 TARGET_FORCE_CPU_UPLOAD := true
 
-# Use Custom HALs
-TARGET_PROVIDES_POWERHAL := true
-TARGET_PROVIDES_LIBLIGHT := true
-
 # GPS HAL is now proprietary
-BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
+TARGET_PROVIDES_GPS_LOC_API := true
 
 # We provide camera HAL.
-USE_DEVICE_SPECIFIC_CAMERA := true
+#USE_DEVICE_SPECIFIC_CAMERA := true
 
-BOARD_SEPOLICY_DIRS += \
-    device/lge/gee-common/sepolicy
+#BOARD_SEPOLICY_DIRS += \
+#    device/lge/gee-common/sepolicy
 
-BOARD_SEPOLICY_UNION += \
-    file_contexts \
-    property_contexts \
-    te_macros \
-    bluetooth_loader.te \
-    bridge.te \
-    camera.te \
-    conn_init.te \
-    device.te \
-    dhcp.te \
-    domain.te \
-    drmserver.te \
-    file.te \
-    kickstart.te \
-    init.te \
-    mediaserver.te \
-    netmgrd.te \
-    property.te \
-    qmux.te \
-    rild.te \
-    rmt.te \
-    sensors.te \
-    surfaceflinger.te \
-    system.te \
-    tee.te \
-    ueventd.te \
-    wpa_supplicant.te
+#BOARD_SEPOLICY_UNION += \
+#    file_contexts \
+#    property_contexts \
+#    te_macros \
+#    bluetooth_loader.te \
+#    bridge.te \
+#    camera.te \
+#    conn_init.te \
+#    device.te \
+#    dhcp.te \
+#    domain.te \
+#    drmserver.te \
+#    file.te \
+#    kickstart.te \
+#    init.te \
+#    mediaserver.te \
+#    netmgrd.te \
+#    property.te \
+#    qmux.te \
+#    rild.te \
+#    rmt.te \
+#    sensors.te \
+#    surfaceflinger.te \
+#    system.te \
+#    tee.te \
+#    ueventd.te \
+#    wpa_supplicant.te
 
-BOARD_HARDWARE_CLASS := device/lge/gee-common/cmhw/
+#BOARD_HARDWARE_CLASS := device/lge/gee-common/cmhw/
