@@ -132,17 +132,3 @@ on charger
     setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
     setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
     setprop net.tcp.buffersize.evdo_b  4094,87380,262144,4096,16384,262144
-
-service ks_checker /system/bin/sh /system/etc/kickstart_checker.sh
-    class core
-    oneshot
-
-service kickstart /system/bin/qcks -i /firmware/image/ -r /data/tombstones/mdm/
-    class core
-    user system
-    group system
-    disabled
-    oneshot
-
-on property:persist.radio.kickstart=on
-    start kickstart

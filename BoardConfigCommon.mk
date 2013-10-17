@@ -17,28 +17,23 @@
 # We optimize for cortex-a15 since krait is closer to a15 than a9
 # and slightly benefits in testing done.
 
-TARGET_GLOBAL_CFLAGS += -mfpu=neon -mtune=cortex-a15 -mfloat-abi=softfp
-TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mtune=cortex-a15 -mfloat-abi=softfp
-TARGET_EXTRA_CFLAGS := -mtune=cortex-a15 -mcpu=cortex-a15
+TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
+TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := true
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
-ARCH_ARM_HAVE_ARMV7A := true
-TARGET_ARCH_VARIANT_CPU := cortex-a15
 TARGET_CPU_VARIANT := krait
+
+# Krait optimizations
 TARGET_USE_KRAIT_BIONIC_OPTIMIZATION := true
 TARGET_USE_KRAIT_PLD_SET := true
 TARGET_KRAIT_BIONIC_PLDOFFS := 10
 TARGET_KRAIT_BIONIC_PLDTHRESH := 10
 TARGET_KRAIT_BIONIC_BBTHRESH := 64
 TARGET_KRAIT_BIONIC_PLDSIZE := 64
-ARCH_ARM_HAVE_TLS_REGISTER := true
-TARGET_USES_INTERACTION_BOOST := true
-
-# Compiler Optimizations
-ARCH_ARM_HIGH_OPTIMIZATION := true
+TARGET_MPDECISION_BOOST_SOCKET := /dev/socket/mpdecision/touchboost
 
 # Enable various prefetch optimizations
 COMMON_GLOBAL_CFLAGS += -D__ARM_USE_PLD -D__ARM_CACHE_LINE_SIZE=64
@@ -114,7 +109,7 @@ TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 23068672 # 22M
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 23068672 # 22M
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 880803840 # 840M
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 6189744128 # 5.9G
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 17179869184 # 16G
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 
 BOARD_USES_SECURE_SERVICES := true
@@ -144,10 +139,10 @@ BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
 # We provide camera HAL.
 USE_DEVICE_SPECIFIC_CAMERA := true
 
+BOARD_LIB_DUMPSTATE := libdumpstate.qcom
+
 BOARD_SEPOLICY_DIRS += \
     device/lge/gee-common/sepolicy
-
-BOARD_HARDWARE_CLASS := device/lge/gee-common/cmhw/
 
 BOARD_SEPOLICY_UNION := \
        app.te \
