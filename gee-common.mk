@@ -48,10 +48,26 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     efsbackup.sh \
     fstab.qcom \
+    init.qcom.rc \
+    init.qcom.usb.rc \
     init.target.rc \
+    init.qcom.bt.sh \
+    init.qcom.post_boot.sh \
+    init.qcom.efs.sync.sh \
+    init.qcom.sh \
+    init.qcom.class_core.sh \
+    init.qcom.class_main.sh \
+    init.qcom.syspart_fixup.sh \
+    init.qcom.early_boot.sh \
+    init.qcom.mdm_links.sh \
+    init.qcom.modem_links.sh \
+    init.qcom.ril.sh \
+    init.qcom.usb.sh \
+    init.qcom.wifi.sh \
+    init.recovery.qcom.rc \
     initlogo.rle \
     kickstart_checker.sh \
-    ueventd.target.rc
+    ueventd.qcom.rc
 
 # WiFi
 PRODUCT_COPY_FILES += \
