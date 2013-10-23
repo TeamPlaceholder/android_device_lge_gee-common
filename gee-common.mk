@@ -217,16 +217,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # EGL Properties
 PRODUCT_PROPERTY_OVERRIDES += \
-    debug.sf.hw=1 \
-    debug.egl.hw=1 \
-    debug.composition.type=dyn \
-    debug.enable.wl_log=1 \
-    persist.hwc.mdpcomp.enable=true \
-    debug.mdpcomp.logs=0 \
-    debug.qctwa.statusbar=1 \
-    debug.qctwa.preservebuf=1 \
-    debug.qc.hardware=true \
-    com.qc.hardware=true
+    persist.hwc.mdpcomp.enable=true
 
 # Other build properties
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -304,10 +295,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     libgenlock \
-    libmemalloc \
     liboverlay \
-    libqdutils \
-    libtilerenderer \
     hwcomposer.msm8960 \
     gralloc.msm8960 \
     copybit.msm8960
@@ -332,9 +320,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.qualcomm.bt.hci_transport=smd
 
 PRODUCT_PACKAGES += \
-        camera.msm8960 \
-        libmmcamera_interface2 \
-        libmmcamera_interface
+    camera.msm8960 \
+    camera.qcom \
+    libmmcamera_interface2 \
+    libmmcamera_interface
 
 # OMX
 PRODUCT_PACKAGES += \
@@ -394,9 +383,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 #Formats: AVI AC3 ASF AAC QCP DTS 3G2
 mm.enable.qcom_parser=33395
 
-# QCOM enhanced A/V
-TARGET_ENABLE_QC_AV_ENHANCEMENTS := true 
-
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.prerotation.disable=1
 
@@ -411,8 +397,5 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
-
-# This is the gee/mako-specific audio package
-$(call inherit-product-if-exists, frameworks/base/data/sounds/AudioPackage10.mk)
 
 $(call inherit-product, hardware/qcom/msm8960/msm8960.mk)
