@@ -62,6 +62,8 @@ on fs
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
+    exec /system/bin/sh /init.qcom.early_boot.sh ${ro.board.platform}
+    exec /system/bin/sh /init.qcom.syspart_fixup.sh ${ro.board.platform} ${ro.serialno}
 
 on boot
     #Create QMUX deamon socket area
@@ -218,11 +220,11 @@ on post-fs-data
     rm /data/local/tmp/adreno_config.txt
 
     # LED On/Off synchronization
-    chown system system /sys/class/leds/red/device/lock
+    chown system system /sys/class/leds/led:red/device/lock
 
     chmod 644 /sys/class/leds/button-backlight/brightness
-    chmod 646 /sys/class/leds/red/brightness
-    chmod 646 /sys/class/leds/green/brightness
+    chmod 644 /sys/class/leds/led:red/brightness
+    chmod 644 /sys/class/leds/led:green/brightness
 
     # Enable vibrate
     chown system system /sys/class/timed_output/vibrator/enable
@@ -273,6 +275,16 @@ on property:bluetooth.hciattach=true
 
 on property:bluetooth.hciattach=false
     setprop bluetooth.status off
+
+service qcom-c_core-sh /system/bin/sh /init.qcom.class_core.sh
+    class core
+    user root
+    oneshot
+
+service qcom-c_main-sh /system/bin/sh /init.qcom.class_main.sh
+    class main
+    user root
+    oneshot
 
 service bridgemgrd /system/bin/bridgemgrd
     class main
@@ -378,7 +390,7 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     user camera
     group camera system inet input
 
-service conn_init /system/bin/logwrapper /system/bin/conn_init
+service conn_init /system/bin/conn_init
     class late_start
     user system
     group system wifi
@@ -403,7 +415,7 @@ service qseecomd /system/bin/qseecomd
     user system
     group system
 
-service diag_mdlog /system/bin/logwrapper /system/bin/diag_mdlog -s 100
+service diag_mdlog /system/bin/diag_mdlog -s 100
     class late_start
     disabled
 

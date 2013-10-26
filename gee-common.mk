@@ -219,6 +219,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.hwc.mdpcomp.enable=true
 
+PRODUCT_PACKAGES += \
+    keystore.msm8960
+
 # Other build properties
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hdmi.enable=true \
