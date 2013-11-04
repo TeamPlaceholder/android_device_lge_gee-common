@@ -95,6 +95,7 @@ ifeq ($(USE_DEVICE_SPECIFIC_CAMERA),true)
 
       LOCAL_C_INCLUDES+= hardware/qcom/display/libgralloc
       LOCAL_C_INCLUDES+= hardware/qcom/display/libgenlock
+      LOCAL_C_INCLUDES+= frameworks/native/include/media/hardware
       LOCAL_C_INCLUDES+= hardware/qcom/media/libstagefrighthw
 
 
