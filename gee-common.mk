@@ -44,6 +44,12 @@ PRODUCT_PACKAGES += \
     VisualizationWallpapers \
     librs_jni
 
+PRODUCT_BOOT_JARS += qcom.fmradio:qcmediaplayer:WfdCommon:org.codeaurora.Performance
+
+PRODUCT_PACKAGES +=  \
+	battery_monitor \
+	battery_shutdown
+
 # Ramdisk and Startup scripts
 PRODUCT_PACKAGES += \
     efsbackup.sh \
