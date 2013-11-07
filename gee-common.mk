@@ -42,6 +42,23 @@ PRODUCT_PACKAGES += \
         VisualizationWallpapers \
         librs_jni
 
+PRODUCT_BOOT_JARS += qcom.fmradio:qcmediaplayer:WfdCommon:org.codeaurora.Performance
+
+# Supports warmboot capabilities
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.warmboot.capability=1
+
+#Snapdragon value add features
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.qc.sdk.audio.ssr=false \
+    ro.streaming.video.drs=true \
+    persist.debug.wfd.enable=1 \
+    persist.sys.wfd.virtual=0
+
+# QC Perf
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.extension_library=/system/lib/libqc-opt.so
+
 PRODUCT_COPY_FILES += \
 	device/lge/gee-common/wifi/WCNSS_cfg.dat:system/vendor/firmware/wlan/prima/WCNSS_cfg.dat \
 	device/lge/gee-common/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
@@ -140,6 +157,52 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	persist.audio.lowlatency.rec=false \
 	af.resampler.quality=4
 
+# System Prop to select MPQAudioPlayer by default on mpq8064
+PRODUCT_PROPERTY_OVERRIDES += \
+    mpq.audio.decode=true
+
+# System Props for the MM modules
+PRODUCT_PROPERTY_OVERRIDES += \
+    media.stagefright.enable-player=true \
+    media.stagefright.enable-http=true \
+    media.stagefright.enable-aac=true \
+    media.stagefright.enable-qcp=true \
+    media.stagefright.enable-fma2dp=true \
+    media.stagefright.enable-scan=true \
+    mmp.enable.3g2=true \
+    mm.enable.smoothstreaming=true \
+    media.aac_51_output_enabled=true
+
+# Smoothness Tweaks
+PRODUCT_PROPERTY_OVERRIDES += \
+    windowsmgr.max_events_per_sec=300 \
+    debug.performance.tuning=1 \
+    video.accelerate.hw=1 \
+    ro.max.fling_velocity=12000 \
+    ro.min.fling_velocity=8000 \
+    ro.config.disable.hw_accel=false \
+    persist.sys.ui.hw=1
+
+# Better Signal and Voice Quality
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.cust.tel.eons=1 \
+    ro.ril.enable.amr.wideband=1 \
+    ro.config.hw_fast_dormancy=1
+
+# EGL Properties
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.sf.hw=1 \
+    debug.egl.hw=1 \
+    debug.composition.type=c2d \
+    debug.enable.wl_log=1 \
+    persist.hwc.mdpcomp.enable=true \
+    debug.mdpcomp.logs=0 \
+    dev.pm.dyn_samplingrate=1 \
+    debug.qctwa.statusbar=1 \
+    debug.qctwa.preservebuf=1 \
+    debug.qc.hardware=true \
+    com.qc.hardware=true
+
 
 # Do not power down SIM card when modem is sent to Low Power Mode.
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -189,7 +252,7 @@ PRODUCT_PACKAGES += \
 	hci_qcomm_init
 
 PRODUCT_PACKAGES += \
-	power.msm8960
+	power.qcom
 
 PRODUCT_COPY_FILES += \
 	device/lge/gee-common/ramdisk/init.qcom.bt.sh:system/etc/init.qcom.bt.sh
@@ -247,6 +310,22 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
 	wifi.interface=wlan0 \
 	wifi.supplicant_scan_interval=15
+
+# Enable AAC 5.1 output
+PRODUCT_PROPERTY_OVERRIDES += \
+    media.aac_51_output_enabled=true
+
+# Enable HW AAC encoder
+PRODUCT_PROPERTY_OVERRIDES += \
+    qcom.hw.aac.encoder=true 
+
+#Add QCOM parsers    
+#33395 is sum of supported format flags in AAL
+#Formats: AVI AC3 ASF AAC QCP DTS 3G2 MP2TS
+mm.enable.qcom_parser=37491
+
+# QCOM enhanced A/V
+TARGET_ENABLE_QC_AV_ENHANCEMENTS := true 
 
 # Enable AAC 5.1 output
 PRODUCT_PROPERTY_OVERRIDES += \
